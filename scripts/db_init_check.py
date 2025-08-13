@@ -1,13 +1,12 @@
-"""
-Script de inicialización y verificación del esquema de base de datos.
+"""Init/chequeo de esquema de base de datos (ejecución manual).
 
-Este script:
-- Crea/Verifica las tablas necesarias (users, records)
-- Corrobora que existan en sqlite_master
-- Verifica restricciones UNIQUE en users.docket y (records.user_id, records.date)
-- Limpia los datos de prueba insertados
+Hace:
+- Crea/verifica users y records
+- Chequea existencia en sqlite_master
+- Verifica UNIQUE en users.docket y (records.user_id, date)
+- Limpia datos de prueba
 
-Ejecución (desde la raíz del proyecto):
+Uso:
     python scripts/db_init_check.py
 """
 

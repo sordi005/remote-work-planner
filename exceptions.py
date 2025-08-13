@@ -1,37 +1,17 @@
-"""
-Módulo de excepciones personalizadas para la aplicación.
-Define excepciones específicas del dominio para manejar errores de forma clara y profesional.
-Esto permite que la UI muestre mensajes útiles al usuario y facilita la depuración.
-"""
+"""Excepciones de dominio de la aplicación (mensajes claros y manejables en UI)."""
 
 class AppError(Exception):
-    """
-    Excepción base para toda la aplicación.
-    Todas las excepciones personalizadas heredan de esta clase.
-    Permite capturar cualquier error de la app de forma genérica.
-    """
+    """Base de todas las excepciones de la app."""
     pass
 
 class ErrorDeBaseDeDatos(AppError):
-    """
-    Excepción para errores relacionados con la base de datos.
-    Se lanza cuando ocurren problemas de conexión, consultas fallidas, o errores de SQL.
-    Ejemplos: problemas de permisos, base de datos corrupta, consultas mal formadas.
-    """
+    """Errores de conexión/consulta/SQL en la base de datos."""
     pass
 
 class UsuarioYaExiste(AppError):
-    """
-    Excepción que se lanza cuando se intenta crear un usuario que ya existe.
-    Ocurre cuando se viola la restricción única en la base de datos.
-    Permite mostrar un mensaje claro al usuario: "El usuario ya existe".
-    """
+    """Restricción de unicidad al crear usuario (docket duplicado)."""
     pass
 
 class RegistroDuplicado(AppError):
-    """
-    Excepción que se lanza cuando se intenta registrar un día remoto que ya está asignado.
-    Ocurre cuando se viola la restricción única en la tabla de registros.
-    Permite mostrar un mensaje claro al usuario: "Ya existe un registro para ese día".
-    """
+    """Restricción de unicidad al crear registro (mismo usuario y fecha)."""
     pass

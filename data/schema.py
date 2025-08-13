@@ -3,19 +3,14 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-"""
-Módulo encargado de la creación de las tablas principales de la base de datos.
-Se debe ejecutar una vez al inicio de la aplicación para asegurar que las tablas existen.
-"""
+"""Creación/verificación de tablas principales de la base de datos."""
 
 def create_tables():
-    """
-    Crea o verifica las tablas 'users' y 'records'.
-    """
-    logger.debug("Iniciando creación/verificación de tablas 'users' y 'records'")
+    """Crea o verifica 'users' y 'records', e índice de consultas por usuario/fecha."""
+    logger.debug("Creando/verificando tablas 'users' y 'records'")
     with get_connection() as conn:
         cursor = conn.cursor()
-        # crear table users
+        # users: empleados (docket único)
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS users (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -23,7 +18,7 @@ def create_tables():
                 docket TEXT NOT NULL UNIQUE
             )
         """)
-        # crear tabla records (único por usuario y fecha para evitar duplicar el mismo día)
+        # records: días remotos; único por (user_id, date)
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS records (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -34,10 +29,10 @@ def create_tables():
                 UNIQUE(user_id, date)
             )
         """)
-        # Índice recomendado para consultas por usuario y fecha
+        # Índice para consultas por usuario y fecha
         cursor.execute("""
             CREATE INDEX IF NOT EXISTS idx_records_user_date
             ON records(user_id, date DESC)
         """)
         conn.commit()
-    logger.info("Tablas 'users' y 'records' creadas/verificadas")
+    logger.info("Tablas listas: users, records")
