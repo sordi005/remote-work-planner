@@ -41,7 +41,7 @@ class UserRepository:
         try:
             with get_connection() as conn:
                 cursor = conn.cursor()
-                cursor.execute("SELECT name, docket FROM users")
+                cursor.execute("SELECT id, name, docket FROM users")
                 rows = cursor.fetchall()
                 logger.info("Usuarios obtenidos: %s", len(rows))
                 return rows
@@ -65,6 +65,40 @@ class UserRepository:
         except Exception as e:
             logger.exception("Error al eliminar usuario id=%s", id)
             raise ErrorDeBaseDeDatos(f"Error al eliminar usuario: {e}")
+
+    @staticmethod
+    def get_by_id(id):
+        """Obtiene un usuario por id (id, name, docket) o None si no existe."""
+        logger.debug("Obteniendo usuario id=%s", id)
+        try:
+            with get_connection() as conn:
+                cursor = conn.cursor()
+                cursor.execute("SELECT id, name, docket FROM users WHERE id = ?", (id,))
+                row = cursor.fetchone()
+                logger.info("Usuario encontrado=%s id=%s", bool(row), id)
+                return row
+        except Exception as e:
+            logger.exception("Error al obtener usuario id=%s", id)
+            raise ErrorDeBaseDeDatos(f"Error al obtener usuario: {e}")
+
+    @staticmethod
+    def update(id, name, docket):
+        """Actualiza nombre/docket del usuario por id."""
+        logger.debug("Actualizando usuario id=%s name=%s docket=%s", id, name, docket)
+        try:
+            with get_connection() as conn:
+                cursor = conn.cursor()
+                cursor.execute(
+                    "UPDATE users SET name = ?, docket = ? WHERE id = ?",
+                    (name, docket, id),
+                )
+                conn.commit()
+                logger.info("Usuario actualizado id=%s", id)
+        except Exception as e:
+            logger.exception("Error al actualizar usuario id=%s", id)
+            if "UNIQUE constraint failed" in str(e):
+                raise UsuarioYaExiste("El usuario ya existe.")
+            raise ErrorDeBaseDeDatos(f"Error al actualizar usuario: {e}")
 
 # Repositorio para operaciones CRUD sobre la tabla de registros de días remotos
 class RecordRespository():
