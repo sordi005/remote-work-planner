@@ -226,3 +226,24 @@ class RecordRespository():
             logger.exception("Error al obtener el último registro para user_id=%s", user_id)
             raise ErrorDeBaseDeDatos(f"Error al obtener el último registro: {e}")
             
+    @staticmethod
+    def update_record_date_and_day(record_id, date, week_day):
+        """
+        Actualiza la fecha y el nombre de día de un registro existente.
+        Lanza ErrorDeBaseDeDatos para errores SQL y respeta UNIQUE(user_id, date).
+        """
+        logger.debug("Actualizando registro id=%s new_date=%s new_day=%s", record_id, date, week_day)
+        try:
+            with get_connection() as conn:
+                cursor = conn.cursor()
+                cursor.execute(
+                    "UPDATE records SET date = ?, week_day = ? WHERE id = ?",
+                    (date, week_day, record_id),
+                )
+                conn.commit()
+                logger.info("Registro actualizado id=%s", record_id)
+        except Exception as e:
+            logger.exception("Error al actualizar registro id=%s", record_id)
+            if "UNIQUE constraint failed" in str(e):
+                raise RegistroDuplicado("Ya existe un registro para ese día.")
+            raise ErrorDeBaseDeDatos(f"Error al actualizar registro: {e}")
