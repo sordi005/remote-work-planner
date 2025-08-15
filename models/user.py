@@ -3,7 +3,6 @@ from typing import Optional, Tuple
 
 """Modelo de dominio: usuario (alineado con tabla 'users')."""
 
-
 @dataclass(frozen=True)
 class User:
     id: Optional[int]
@@ -26,10 +25,3 @@ class User:
         """Tupla (name, docket) para INSERT."""
         return (self.name, self.docket)
 
-class User: 
-    
-    id 
-    
-
-    def __init__(self) -> None:
-        pass
