@@ -1,4 +1,3 @@
-from sqlite3 import Cursor
 from data.db_utils import get_connection
 from exceptions import ErrorDeBaseDeDatos, UsuarioYaExiste, RegistroDuplicado
 import logging
@@ -100,6 +99,21 @@ class UserRepository:
                 raise UsuarioYaExiste("El usuario ya existe.")
             raise ErrorDeBaseDeDatos(f"Error al actualizar usuario: {e}")
 
+    @staticmethod
+    def exist_by_name(name):
+        """Devuelve True si existe un usuario con ese name; False en caso contrario."""
+        logger.debug("Verificando existencia de usuario name=%s", name)
+        try:
+            with get_connection() as conn:
+                cursor = conn.cursor()
+                cursor.execute("SELECT EXISTS(SELECT 1 FROM users WHERE name = ?)", (name,))
+                exists_flag = bool(cursor.fetchone()[0])
+                logger.info("Existe usuario name=%s: %s", name, exists_flag)
+                return exists_flag
+        except Exception as e:
+            logger.exception("Error al verificar existencia de usuario name=%s", name)
+            raise ErrorDeBaseDeDatos(f"Error al verificar existencia: {e}")
+
 # Repositorio para operaciones CRUD sobre la tabla de registros de días remotos
 class RecordRespository():
     @staticmethod
@@ -127,6 +141,48 @@ class RecordRespository():
             if "UNIQUE constraint failed" in str(e):
                 raise RegistroDuplicado("Ya existe un registro para ese día.")
             raise ErrorDeBaseDeDatos(f"Error al crear registro: {e}")
+
+    @staticmethod
+    def exists_in_week(user_id, start_iso, end_iso):
+        """Devuelve True si el usuario tiene al menos un registro entre start_iso y end_iso (incluidos)."""
+        logger.debug("exists_in_week user_id=%s start=%s end=%s", user_id, start_iso, end_iso)
+        try:
+            with get_connection() as conn:
+                cursor = conn.cursor()
+                cursor.execute(
+                    "SELECT EXISTS(SELECT 1 FROM records WHERE user_id = ? AND date BETWEEN ? AND ?)",
+                    (user_id, start_iso, end_iso),
+                )
+                flag = bool(cursor.fetchone()[0])
+                logger.info("exists_in_week user_id=%s -> %s", user_id, flag)
+                return flag
+        except Exception as e:
+            logger.exception("Error en exists_in_week user_id=%s", user_id)
+            raise ErrorDeBaseDeDatos(f"Error al verificar registros de la semana: {e}")
+
+    @staticmethod
+    def get_record_in_week(user_id, start_iso, end_iso):
+        """Obtiene el registro más reciente del usuario entre start_iso y end_iso; None si no hay."""
+        logger.debug("get_record_in_week user_id=%s start=%s end=%s", user_id, start_iso, end_iso)
+        try:
+            with get_connection() as conn:
+                cursor = conn.cursor()
+                cursor.execute(
+                    """
+                    SELECT id, date, week_day
+                    FROM records
+                    WHERE user_id = ? AND date BETWEEN ? AND ?
+                    ORDER BY date DESC
+                    LIMIT 1
+                    """,
+                    (user_id, start_iso, end_iso),
+                )
+                row = cursor.fetchone()
+                logger.info("get_record_in_week user_id=%s found=%s", user_id, bool(row))
+                return row
+        except Exception as e:
+            logger.exception("Error en get_record_in_week user_id=%s", user_id)
+            raise ErrorDeBaseDeDatos(f"Error al obtener registro de la semana: {e}")
 
     @staticmethod
     def list_by_user(user_id):
