@@ -27,6 +27,7 @@ from services.assignment_service import AsignacionService
 from .dialogs import AddUserDialog
 from datetime import date, timedelta
 from PyQt6.QtWidgets import QButtonGroup
+from PyQt6.QtWidgets import QMessageBox
 
 
 class MainWindow(QMainWindow):
@@ -56,7 +57,7 @@ class MainWindow(QMainWindow):
 
         btn_add_user = QPushButton("Agregar Empleado")
         empleados_label = QLabel("Empleados:")
-        empleados_label.setProperty("role", "section")
+        empleados_label.setProperty("role", "section") 
         empleados_list = QListWidget()
         self._employees_list = empleados_list
         sidebar.setMinimumWidth(260)
@@ -69,7 +70,7 @@ class MainWindow(QMainWindow):
 
         # Contenido (derecha): encabezado + info + calendario semanal
         content = QFrame()
-        content.setFrameShape(QFrame.Shape.NoFrame)
+        content.setFrameShape(QFrame.Shape.NoFrame) 
         content_layout = QVBoxLayout(content)
         content_layout.setContentsMargins(24, 24, 24, 24)
         content_layout.setSpacing(12)
@@ -81,7 +82,7 @@ class MainWindow(QMainWindow):
         self._lbl_docket = QLabel("Legajo")
         self._lbl_docket.setStyleSheet("color: #666; font-size: 14px;")
 
-        header_box = QVBoxLayout()
+        header_box = QVBoxLayout() # QVBoxLayout : Vertical Box Layout
         header_box.setSpacing(2)
         header_box.addWidget(self._lbl_name)
         header_box.addWidget(self._lbl_docket)
@@ -92,21 +93,21 @@ class MainWindow(QMainWindow):
 
         # Fila de información (horizontal): estado semanal + último registro
         info_row = QHBoxLayout()
-        info_row.setSpacing(24)
+        info_row.setSpacing(8)
 
-        self._lbl_registered = QLabel("Registrado esta semana: -")
+        self._lbl_registered = QLabel("Registrado: -")
         self._lbl_registered.setStyleSheet("font-size: 13px;")
 
-        self._lbl_last_date = QLabel("Último - Fecha: ")
+        self._lbl_last_date = QLabel("Último registro: ")
         self._lbl_last_date.setStyleSheet("font-size: 13px;")
 
-        self._lbl_last_day = QLabel("Último - Día: ")
+        self._lbl_last_day = QLabel("Último Día: ")
         self._lbl_last_day.setStyleSheet("font-size: 13px;")
 
         info_row.addWidget(self._lbl_registered)
         info_row.addWidget(self._lbl_last_date)
         info_row.addWidget(self._lbl_last_day)
-        info_row.addStretch(1)
+        info_row.addStretch(8)
 
         info_frame = QFrame()
         info_frame.setLayout(info_row)
@@ -116,7 +117,7 @@ class MainWindow(QMainWindow):
         self._lbl_week = QLabel("")
         self._lbl_week.setStyleSheet("font-size: 13px; color: #666;")
 
-        days_row = QHBoxLayout()
+        days_row = QHBoxLayout() 
         days_row.setSpacing(8)
         self._day_buttons: list[QPushButton] = []
         self._day_group = QButtonGroup(self)
@@ -125,7 +126,7 @@ class MainWindow(QMainWindow):
         for _ in range(7):
             btn = QPushButton("-")
             btn.setCheckable(True)
-            btn.setMinimumHeight(48)
+            btn.setMinimumHeight(60)
             self._day_buttons.append(btn)
             self._day_group.addButton(btn)
             days_row.addWidget(btn)
@@ -138,7 +139,7 @@ class MainWindow(QMainWindow):
         cal_layout.addLayout(days_row)
         content_layout.addWidget(calendar_frame)
 
-        content_layout.addStretch(1)
+        content_layout.addStretch(15)
 
         # Splitter principal: fija el sidebar y expande el contenido
         splitter = QSplitter(Qt.Orientation.Horizontal)
@@ -185,8 +186,8 @@ class MainWindow(QMainWindow):
         self._lbl_name.setText("Nombre completo")
         self._lbl_docket.setText("Legajo")
         self._lbl_registered.setText("Registrado esta semana: -")
-        self._lbl_last_date.setText("Último - Fecha: ")
-        self._lbl_last_day.setText("Último - Día: ")
+        self._lbl_last_date.setText("Último Fecha: ")
+        self._lbl_last_day.setText("Último Día: ")
 
     
     def _on_user_selected(self, current, previous) -> None:
@@ -240,10 +241,67 @@ class MainWindow(QMainWindow):
             btn.setProperty("date_iso", d.isoformat())
 
     def _on_day_selected(self, button: QPushButton) -> None:
-        """Guarda la fecha seleccionada (ISO) para usarla en la asignación/cambio."""
+        """Gestiona la selección de un día: confirma y asigna/cambia si corresponde."""
         self._selected_date_iso = button.property("date_iso")
 
+        # Validar selección de empleado
+        current_item = self._employees_list.currentItem()
+        if current_item is None:
+            QMessageBox.information(self, "Selecciona un empleado", "Primero selecciona un empleado en el listado.")
+            return
+        user_id = current_item.data(Qt.ItemDataRole.UserRole)
+        if user_id is None:
+            QMessageBox.information(self, "Selecciona un empleado", "Selección inválida de empleado.")
+            return
+
+        # Confirmaciones según estado semanal
+        date_iso = self._selected_date_iso
+        # Texto amigable dd/mm/YYYY
+        try:
+            y, m, d = map(int, str(date_iso).split("-"))
+            pretty_day = f"{d:02d}/{m:02d}/{y:04d}"
+        except Exception:
+            pretty_day = str(date_iso)
+
+        try:
+            if self._assign_service.is_registered_this_week(int(user_id)):
+                resp = QMessageBox.question(
+                    self,
+                    "Cambiar registro",
+                    f"Este empleado ya tiene un registro esta semana.\n\n¿Quieres cambiarlo a {pretty_day}?",
+                )
+                if resp != QMessageBox.StandardButton.Yes:
+                    return
+                self._assign_service.change_week_assignment(int(user_id), date_iso)
+            else:
+                resp = QMessageBox.question(
+                    self,
+                    "Confirmar asignación",
+                    f"¿Registrar el día {pretty_day} para este empleado?",
+                )
+                if resp != QMessageBox.StandardButton.Yes:
+                    return
+                self._assign_service.assign_day(int(user_id), date_iso)
+
+            # Refrescar listado y encabezado conservando selección
+            selected_id = int(user_id)
+            self.load_users()
+            self._select_user_in_list(selected_id)
+
+        except AppError as e:
+            QMessageBox.warning(self, "Regla de negocio", str(e))
+
+    def _select_user_in_list(self, target_id: int) -> None:
+        """Selecciona en el sidebar el item cuyo UserRole coincide con `target_id`."""
+        for i in range(self._employees_list.count()):
+            it = self._employees_list.item(i)
+            if it.data(Qt.ItemDataRole.UserRole) == target_id:
+                self._employees_list.setCurrentRow(i)
+                break
+        
+
     def _on_add_user(self) -> None:
+        
         dialog = AddUserDialog(self)
         if dialog.exec():
             name, docket = dialog.values()

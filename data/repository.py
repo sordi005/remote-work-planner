@@ -145,7 +145,7 @@ class RecordRespository():
     @staticmethod
     def exists_in_week(user_id, start_iso, end_iso):
         """Devuelve True si el usuario tiene al menos un registro entre start_iso y end_iso (incluidos)."""
-        logger.debug("exists_in_week user_id=%s start=%s end=%s", user_id, start_iso, end_iso)
+        logger.debug("Verificando existencia en semana user_id=%s inicio=%s fin=%s", user_id, start_iso, end_iso)
         try:
             with get_connection() as conn:
                 cursor = conn.cursor()
@@ -154,16 +154,16 @@ class RecordRespository():
                     (user_id, start_iso, end_iso),
                 )
                 flag = bool(cursor.fetchone()[0])
-                logger.info("exists_in_week user_id=%s -> %s", user_id, flag)
+                logger.info("Existe registro en semana user_id=%s -> %s", user_id, flag)
                 return flag
         except Exception as e:
-            logger.exception("Error en exists_in_week user_id=%s", user_id)
+            logger.exception("Error al verificar existencia en semana user_id=%s", user_id)
             raise ErrorDeBaseDeDatos(f"Error al verificar registros de la semana: {e}")
 
     @staticmethod
     def get_record_in_week(user_id, start_iso, end_iso):
         """Obtiene el registro más reciente del usuario entre start_iso y end_iso; None si no hay."""
-        logger.debug("get_record_in_week user_id=%s start=%s end=%s", user_id, start_iso, end_iso)
+        logger.debug("Obteniendo registro de la semana user_id=%s inicio=%s fin=%s", user_id, start_iso, end_iso)
         try:
             with get_connection() as conn:
                 cursor = conn.cursor()
@@ -178,10 +178,10 @@ class RecordRespository():
                     (user_id, start_iso, end_iso),
                 )
                 row = cursor.fetchone()
-                logger.info("get_record_in_week user_id=%s found=%s", user_id, bool(row))
+                logger.info("Registro de la semana encontrado user_id=%s -> %s", user_id, bool(row))
                 return row
         except Exception as e:
-            logger.exception("Error en get_record_in_week user_id=%s", user_id)
+            logger.exception("Error al obtener registro de la semana user_id=%s", user_id)
             raise ErrorDeBaseDeDatos(f"Error al obtener registro de la semana: {e}")
 
     @staticmethod
@@ -232,7 +232,7 @@ class RecordRespository():
         Actualiza la fecha y el nombre de día de un registro existente.
         Lanza ErrorDeBaseDeDatos para errores SQL y respeta UNIQUE(user_id, date).
         """
-        logger.debug("Actualizando registro id=%s new_date=%s new_day=%s", record_id, date, week_day)
+        logger.debug("Actualizando registro id=%s nueva_fecha=%s nuevo_dia=%s", record_id, date, week_day)
         try:
             with get_connection() as conn:
                 cursor = conn.cursor()

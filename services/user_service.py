@@ -15,7 +15,7 @@ class UserService:
 
     def create_user(self, name: str, docket: str) -> User:
         """Crea un usuario y devuelve el modelo User."""
-        logger.debug("UserService.create_user name=%s docket=%s", name, docket)
+        logger.debug("Creando usuario name=%s docket=%s", name, docket)
         user_id = self._repo.create(name, docket)
         return User(id=user_id, name=name, docket=docket)
 
@@ -31,10 +31,10 @@ class UserService:
 
     def update_user(self, user_id: int, name: str, docket: str) -> None:
         """Actualiza nombre/docket del usuario."""
-        logger.debug("UserService.update_user id=%s name=%s docket=%s", user_id, name, docket)
+        logger.debug("Actualizando usuario id=%s name=%s docket=%s", user_id, name, docket)
         self._repo.update(user_id, name, docket)
 
     def delete_user(self, user_id: int) -> None:
         """Elimina un usuario por id."""
-        logger.debug("UserService.delete_user id=%s", user_id)
+        logger.debug("Eliminando usuario id=%s", user_id)
         self._repo.delete(user_id)

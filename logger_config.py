@@ -20,5 +20,5 @@ logging.basicConfig(
     ]
 )
 
-# Logger principal para usar en toda la app
+# Logger raíz de la app (nivel se configura en basicConfig). Usar logging.getLogger(__name__) en módulos.
 logger = logging.getLogger("GestorEmpleados")

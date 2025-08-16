@@ -9,6 +9,7 @@ Responsabilidades principales:
 import logging
 from datetime import date, datetime, timedelta
 from typing import List, Optional, Tuple
+import logging
 
 from data.repository import RecordRespository, UserRepository
 from models.record import Record
@@ -47,6 +48,7 @@ def _week_bounds(d: date) -> Tuple[str, str]:
 
 
 class AsignacionService:
+   
     def __init__(self, record_repo: RecordRespository | None = None, user_repo: UserRepository | None = None) -> None:
         self._records = record_repo or RecordRespository
         self._users = user_repo or UserRepository
@@ -55,7 +57,7 @@ class AsignacionService:
         """True si el usuario tiene un registro en la semana de `ref_date` (por defecto hoy)."""
         ref = ref_date or date.today()
         start_iso, end_iso = _week_bounds(ref)
-        logger.debug("is_registered_this_week user_id=%s start=%s end=%s", user_id, start_iso, end_iso)
+        logger.debug("Esta registrado esta semana user_id=%s start=%s end=%s", user_id, start_iso, end_iso)
         return self._records.exists_in_week(user_id, start_iso, end_iso)
 
     def latest_for_user(self, user_id: int) -> Optional[Record]:
@@ -66,6 +68,7 @@ class AsignacionService:
     def list_by_user(self, user_id: int) -> List[Record]:
         """Lista registros del usuario como modelos Record (ordenados por fecha desc)."""
         rows = self._records.list_by_user(user_id)
+        logger.debug("Listando registros del usuario user_id=%s total=%s", user_id, len(rows))
         return [Record.from_row(r) for r in rows]
 
     # === Validaciones separadas ===
@@ -119,7 +122,7 @@ class AsignacionService:
         self._validate_not_same_weekday_as_prev_week(user_id, d)
 
         week_day = _WEEKDAY_MAP[d.weekday()]
-        logger.debug("Creando registro user_id=%s date=%s week_day=%s", user_id, date_iso, week_day)
+        logger.debug("Creando registro user_id=%s fecha=%s dia=%s", user_id, date_iso, week_day)
         rec_id = self._records.create_record(user_id, date_iso, week_day)
         logger.info("Registro creado id=%s user_id=%s date=%s day=%s", rec_id, user_id, date_iso, week_day)
         return Record(id=rec_id, user_id=user_id, date=date_iso, week_day=week_day)
@@ -154,7 +157,7 @@ class AsignacionService:
         rec_id, _cur_date, _cur_day = current
         week_day = _WEEKDAY_MAP[d.weekday()]
         self._records.update_record_date_and_day(rec_id, date_iso, week_day)
-        logger.info("Registro cambiado id=%s user_id=%s new_date=%s new_day=%s", rec_id, user_id, date_iso, week_day)
+        logger.info("Registro cambiado id=%s user_id=%s nueva_fecha=%s nuevo_dia=%s", rec_id, user_id, date_iso, week_day)
         return Record(id=rec_id, user_id=user_id, date=date_iso, week_day=week_day)
 
     # Compatibilidad: método previo usado en algunos puntos

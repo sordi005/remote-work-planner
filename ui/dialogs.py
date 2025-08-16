@@ -17,6 +17,7 @@ from PyQt6.QtWidgets import (
 
 
 class AddUserDialog(QDialog):
+    
     """Diálogo simple para ingresar nombre y docket del empleado."""
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
