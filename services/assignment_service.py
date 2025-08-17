@@ -11,7 +11,9 @@ from datetime import date, datetime, timedelta
 from typing import List, Optional, Tuple
 import logging
 
-from data.repository import RecordRespository, UserRepository
+from data.user_repo import  UserRepository
+from data.assignament_repo import RecordRespository
+
 from models.record import Record
 from models.user import User
 from exceptions import (
@@ -164,3 +166,10 @@ class AsignacionService:
     def validate_repeat_week_day(self, user_id: int, date_iso: str) -> None:
         d = _parse_iso(date_iso)
         self._validate_not_same_weekday_as_prev_week(user_id, d)
+
+    def delete_all_records_by_user(self, user_id: int) -> None:
+        """Elimina todos los registros de un usuario."""
+        logger.debug("Eliminando todos los registros para user_id=%s", user_id)
+        self._users.delete_user(user_id)
+        self._records.delete_all_records_by_user(user_id)
+        logger.info("Todos los registros y usuario eliminados para user_id=%s", user_id)

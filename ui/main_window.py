@@ -87,8 +87,21 @@ class MainWindow(QMainWindow):
         header_box.addWidget(self._lbl_name)
         header_box.addWidget(self._lbl_docket)
 
+        # Botones de acción (derecha): Editar / Eliminar
+        self._btn_edit = QPushButton("Editar empleado")
+        self._btn_delete = QPushButton("Eliminar empleado")
+        self._btn_edit.setEnabled(False)
+        self._btn_delete.setEnabled(False)
+
+        header_row = QHBoxLayout()
+        header_row.setSpacing(12)
+        header_row.addLayout(header_box, 1)
+        header_row.addStretch(1)
+        header_row.addWidget(self._btn_edit)
+        header_row.addWidget(self._btn_delete)
+
         header_frame = QFrame()
-        header_frame.setLayout(header_box)
+        header_frame.setLayout(header_row)
         content_layout.addWidget(header_frame)
 
         # Fila de información (horizontal): estado semanal + último registro
@@ -161,6 +174,8 @@ class MainWindow(QMainWindow):
         btn_add_user.clicked.connect(self._on_add_user)
         self._employees_list.currentItemChanged.connect(self._on_user_selected)
         self._day_group.buttonClicked.connect(self._on_day_selected)
+        self._btn_edit.clicked.connect(self._on_edit_user)
+        self._btn_delete.clicked.connect(self._on_delete_user)
 
         # Carga inicial de datos de UI
         self.load_users()
@@ -194,14 +209,20 @@ class MainWindow(QMainWindow):
         """Actualiza el encabezado con datos y estado del empleado seleccionado."""
         if current is None:
             self._clear_employee_info()
+            self._btn_edit.setEnabled(False)
+            self._btn_delete.setEnabled(False)
             return
         user_id = current.data(Qt.ItemDataRole.UserRole)
         if user_id is None:
             self._clear_employee_info()
+            self._btn_edit.setEnabled(False)
+            self._btn_delete.setEnabled(False)
             return
         user = self._user_service.get_user(int(user_id))
         if user is None:
             self._clear_employee_info()
+            self._btn_edit.setEnabled(False)
+            self._btn_delete.setEnabled(False)
             return
         
         # Setear encabezado
@@ -217,6 +238,9 @@ class MainWindow(QMainWindow):
         else:
             self._lbl_last_date.setText("Último - Fecha: ")
             self._lbl_last_day.setText("Último - Día: ")
+        # Habilitar acciones al tener un empleado válido
+        self._btn_edit.setEnabled(True)
+        self._btn_delete.setEnabled(True)
 
     # ===== Calendario semanal =====
     def _setup_week_ui(self, base: date) -> None:
@@ -315,6 +339,65 @@ class MainWindow(QMainWindow):
             except AppError as e:
                 from PyQt6.QtWidgets import QMessageBox
                 QMessageBox.warning(self, "Error", str(e))
+
+    def _on_edit_user(self) -> None:
+        """Edita el empleado seleccionado usando el diálogo de alta pre-rellenado."""
+        current_item = self._employees_list.currentItem()
+        if current_item is None:
+            QMessageBox.information(self, "Selecciona un empleado", "Primero selecciona un empleado en el listado.")
+            return
+        user_id = current_item.data(Qt.ItemDataRole.UserRole)
+        user = self._user_service.get_user(int(user_id)) if user_id is not None else None
+        if user is None:
+            QMessageBox.information(self, "No encontrado", "No se pudo cargar el empleado seleccionado.")
+            return
+
+        dlg = AddUserDialog(self)
+        # Pre-cargar valores actuales
+        try:
+            dlg._name.setText(user.name)  # tipo simple; diálogo interno
+            dlg._docket.setText(user.docket)
+        except Exception:
+            pass
+
+        if dlg.exec():
+            name, docket = dlg.values()
+            if not name or not docket:
+                QMessageBox.information(self, "Datos incompletos", "Nombre y Docket son obligatorios.")
+                return
+            try:
+                self._user_service.update_user(int(user_id), name, docket)
+                # Refrescar y mantener selección
+                self.load_users()
+                self._select_user_in_list(int(user_id))
+            except AppError as e:
+                QMessageBox.warning(self, "Error", str(e))
+
+    def _on_delete_user(self) -> None:
+        """Elimina el empleado seleccionado previa confirmación."""
+        current_item = self._employees_list.currentItem()
+        if current_item is None:
+            QMessageBox.information(self, "Selecciona un empleado", "Primero selecciona un empleado en el listado.")
+            return
+        user_id = current_item.data(Qt.ItemDataRole.UserRole)
+        if user_id is None:
+            QMessageBox.information(self, "Selección inválida", "No se pudo identificar al empleado.")
+            return
+        resp = QMessageBox.question(
+            self,
+            "Eliminar empleado",
+            "¿Seguro que deseas eliminar este empleado? Esta acción no se puede deshacer.",
+        )
+        if resp != QMessageBox.StandardButton.Yes:
+            return
+        try:
+            self._user_service.delete_user(int(user_id))
+            self.load_users()
+            self._clear_employee_info()
+            self._btn_edit.setEnabled(False)
+            self._btn_delete.setEnabled(False)
+        except AppError as e:
+            QMessageBox.warning(self, "Error", str(e))
 
 
 def run_app() -> None:

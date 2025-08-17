@@ -1,0 +1,11 @@
+2025-08-16 13:47:00 [INFO] GestorEmpleados: Aplicación iniciando
+2025-08-16 13:47:00 [DEBUG] GestorEmpleados: Creando/verificando tablas de badse de datos...
+2025-08-16 13:47:00 [DEBUG] data.schema: Creando/verificando tablas 'users' y 'records'
+2025-08-16 13:47:00 [INFO] data.schema: Tablas listas: users, records
+2025-08-16 13:47:00 [INFO] GestorEmpleados: Tablas listas
+2025-08-16 13:47:00 [DEBUG] GestorEmpleados: Abriendo conexión de prueba a la base de datos...
+2025-08-16 13:47:00 [INFO] GestorEmpleados: Conexión a la base de datos OK
+2025-08-16 13:47:00 [DEBUG] GestorEmpleados: Conexión a la base de datos cerrada
+2025-08-16 13:47:00 [DEBUG] data.user_repo: Listando todos los usuarios
+2025-08-16 13:47:00 [INFO] data.user_repo: Usuarios obtenidos: 5
+2025-08-16 19:01:48 [INFO] GestorEmpleados: Aplicación finalizada

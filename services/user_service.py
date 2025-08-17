@@ -3,7 +3,7 @@
 import logging
 from typing import List, Optional
 
-from data.repository import UserRepository
+from data.user_repo import UserRepository
 from models.user import User
 
 logger = logging.getLogger(__name__)
