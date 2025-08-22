@@ -28,7 +28,7 @@ class AddUserDialog(QDialog):
         layout = QVBoxLayout(self)
         layout.addWidget(QLabel("Nombre"))
         layout.addWidget(self._name)
-        layout.addWidget(QLabel("Docket"))
+        layout.addWidget(QLabel("Legajo"))
         layout.addWidget(self._docket)
 
         btns = QHBoxLayout()

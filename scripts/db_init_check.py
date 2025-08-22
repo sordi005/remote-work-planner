@@ -113,10 +113,13 @@ def main() -> None:
         logger.exception("Error al crear/verificar tablas")
         raise
 
-    # 2) Verificación de existencia y restricciones
+    # 2) Verificación de existencia, PRAGMA y restricciones
     try:
         with get_connection() as conn:
             cursor = conn.cursor()
+            cursor.execute("PRAGMA foreign_keys")
+            fk = cursor.fetchone()[0]
+            logger.info("PRAGMA foreign_keys=%s", fk)
             _verify_tables_exist(cursor)
             logger.info("Existencia de tablas verificada")
             _verify_unique_constraints(conn)

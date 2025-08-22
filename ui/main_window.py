@@ -21,6 +21,7 @@ from PyQt6.QtWidgets import (
     QVBoxLayout,
     QWidget,
 )
+from PyQt6.QtGui import QColor, QBrush
 from exceptions import AppError
 from services.user_service import UserService
 from services.assignment_service import AsignacionService
@@ -28,6 +29,8 @@ from .dialogs import AddUserDialog
 from datetime import date, timedelta
 from PyQt6.QtWidgets import QButtonGroup
 from PyQt6.QtWidgets import QMessageBox
+from config import RESOURCES_DIR
+from PyQt6.QtGui import QCursor
 
 
 class MainWindow(QMainWindow):
@@ -43,8 +46,8 @@ class MainWindow(QMainWindow):
     def __init__(self) -> None:
         super().__init__()
         self.setWindowTitle("Trabajo Remoto - Gestor")
-        self.resize(1200, 700)
-        self.setMinimumSize(900, 600)
+        self.resize(1280, 800)
+        self.setMinimumSize(1000, 680)
         self._user_service = UserService()
         self._assign_service = AsignacionService()
 
@@ -56,10 +59,14 @@ class MainWindow(QMainWindow):
         sidebar_layout.setSpacing(12)
 
         btn_add_user = QPushButton("Agregar Empleado")
+        btn_add_user.setProperty("btn", "primary")
+        btn_add_user.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         empleados_label = QLabel("Empleados:")
         empleados_label.setProperty("role", "section") 
         empleados_list = QListWidget()
         self._employees_list = empleados_list
+        # Evitar rectángulo punteado de foco en la lista
+        self._employees_list.setFocusPolicy(Qt.FocusPolicy.NoFocus)
         sidebar.setMinimumWidth(260)
         sidebar.setMaximumWidth(360)
 
@@ -89,9 +96,15 @@ class MainWindow(QMainWindow):
 
         # Botones de acción (derecha): Editar / Eliminar
         self._btn_edit = QPushButton("Editar empleado")
+        self._btn_edit.setProperty("btn", "secondary")
         self._btn_delete = QPushButton("Eliminar empleado")
+        self._btn_delete.setProperty("btn", "danger")
+        self._btn_edit.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self._btn_delete.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self._btn_edit.setEnabled(False)
         self._btn_delete.setEnabled(False)
+        self._btn_edit.setVisible(False)
+        self._btn_delete.setVisible(False)
 
         header_row = QHBoxLayout()
         header_row.setSpacing(12)
@@ -101,34 +114,58 @@ class MainWindow(QMainWindow):
         header_row.addWidget(self._btn_delete)
 
         header_frame = QFrame()
+        header_frame.setObjectName("headerPanel")
         header_frame.setLayout(header_row)
         content_layout.addWidget(header_frame)
 
-        # Fila de información (horizontal): estado semanal + último registro
+        # Fila de información (horizontal): estado semanal + último registro (en cajas)
         info_row = QHBoxLayout()
-        info_row.setSpacing(8)
+        info_row.setSpacing(16)
 
-        self._lbl_registered = QLabel("Registrado: -")
-        self._lbl_registered.setStyleSheet("font-size: 13px;")
+        # Registrado esta semana
+        self._reg_title = QLabel("Registrado")
+        self._reg_title.setProperty("role", "metricTitle")
+        self._reg_value = QLabel("-")
+        self._reg_value.setProperty("role", "metricValue")
+        reg_box = QVBoxLayout()
+        reg_box.setSpacing(2)
+        reg_box.addWidget(self._reg_title)
+        reg_box.addWidget(self._reg_value)
 
-        self._lbl_last_date = QLabel("Último registro: ")
-        self._lbl_last_date.setStyleSheet("font-size: 13px;")
+        # Último registro (fecha)
+        self._last_date_title = QLabel("Último registro")
+        self._last_date_title.setProperty("role", "metricTitle")
+        self._last_date_value = QLabel("")
+        self._last_date_value.setProperty("role", "metricValue")
+        last_date_box = QVBoxLayout()
+        last_date_box.setSpacing(2)
+        last_date_box.addWidget(self._last_date_title)
+        last_date_box.addWidget(self._last_date_value)
 
-        self._lbl_last_day = QLabel("Último Día: ")
-        self._lbl_last_day.setStyleSheet("font-size: 13px;")
+        # Último día (nombre)
+        self._last_day_title = QLabel("Último día")
+        self._last_day_title.setProperty("role", "metricTitle")
+        self._last_day_value = QLabel("")
+        self._last_day_value.setProperty("role", "metricValue")
+        last_day_box = QVBoxLayout()
+        last_day_box.setSpacing(2)
+        last_day_box.addWidget(self._last_day_title)
+        last_day_box.addWidget(self._last_day_value)
 
-        info_row.addWidget(self._lbl_registered)
-        info_row.addWidget(self._lbl_last_date)
-        info_row.addWidget(self._lbl_last_day)
+        info_row.addLayout(reg_box)
+        info_row.addLayout(last_date_box)
+        info_row.addLayout(last_day_box)
         info_row.addStretch(8)
 
         info_frame = QFrame()
+        info_frame.setObjectName("infoPanel")
         info_frame.setLayout(info_row)
         content_layout.addWidget(info_frame)
 
         # Calendario semanal (maqueta con selección de un día)
         self._lbl_week = QLabel("")
-        self._lbl_week.setStyleSheet("font-size: 13px; color: #666;")
+        self._lbl_week.setObjectName("weekTitle")
+        self._lbl_week.setStyleSheet("font-size: 13px;")
 
         days_row = QHBoxLayout() 
         days_row.setSpacing(8)
@@ -139,7 +176,9 @@ class MainWindow(QMainWindow):
         for _ in range(7):
             btn = QPushButton("-")
             btn.setCheckable(True)
-            btn.setMinimumHeight(60)
+            btn.setMinimumHeight(68)
+            btn.setProperty("kind", "day")
+            btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
             self._day_buttons.append(btn)
             self._day_group.addButton(btn)
             days_row.addWidget(btn)
@@ -180,6 +219,16 @@ class MainWindow(QMainWindow):
         # Carga inicial de datos de UI
         self.load_users()
         self._setup_week_ui(date.today())
+        # Estado de selección de día en calendario
+        self._selected_date_iso = None
+        # Cargar estilos QSS si existe
+        try:
+            qss_path = RESOURCES_DIR / "style.qss"
+            if qss_path.exists():
+                with open(qss_path, "r", encoding="utf-8") as f:
+                    self.setStyleSheet(f.read())
+        except Exception:
+            pass
 
     def load_users(self) -> None:
         """Carga y pinta el listado de empleados en el sidebar.
@@ -188,21 +237,43 @@ class MainWindow(QMainWindow):
         """
         users = self._user_service.list_users()
         self._employees_list.clear()
-        for u in users:
-            item_text = u.name
-            from PyQt6.QtWidgets import QListWidgetItem
-            it = QListWidgetItem(item_text)
-            it.setData(Qt.ItemDataRole.UserRole, u.id)
-            self._employees_list.addItem(it)
+        # Consultar estado semanal para pintar usuarios registrados
+        try:
+            status_list = self._assign_service.users_week_status(users)
+        except Exception:
+            status_list = [(u, False) for u in users]
+
+        from PyQt6.QtWidgets import QListWidgetItem
+        # Separar no-registrados (arriba) y registrados (abajo)
+        pending = [(u, f) for (u, f) in status_list if not f]
+        done = [(u, f) for (u, f) in status_list if f]
+
+        marked_brush = QBrush(QColor(46, 204, 113, 140))  # verde translúcido más visible en dark
+
+        def _add_items(pairs: list[tuple]):
+            for u, is_marked in pairs:
+                it = QListWidgetItem(u.name)
+                it.setData(Qt.ItemDataRole.UserRole, u.id)
+                if is_marked:
+                    it.setBackground(marked_brush)
+                    # Ligeramente más claro el texto para destacar sin molestar
+                    it.setForeground(QBrush(QColor(207, 243, 218)))
+                    it.setToolTip("Registrado esta semana")
+                else:
+                    it.setToolTip("Sin registro esta semana")
+                self._employees_list.addItem(it)
+
+        _add_items(pending)
+        _add_items(done)
 
     
     def _clear_employee_info(self) -> None:
         """Resetea los labels del encabezado cuando no hay selección."""
         self._lbl_name.setText("Nombre completo")
         self._lbl_docket.setText("Legajo")
-        self._lbl_registered.setText("Registrado esta semana: -")
-        self._lbl_last_date.setText("Último Fecha: ")
-        self._lbl_last_day.setText("Último Día: ")
+        self._reg_value.setText("-")
+        self._last_date_value.setText("")
+        self._last_day_value.setText("")
 
     
     def _on_user_selected(self, current, previous) -> None:
@@ -211,18 +282,29 @@ class MainWindow(QMainWindow):
             self._clear_employee_info()
             self._btn_edit.setEnabled(False)
             self._btn_delete.setEnabled(False)
+            self._btn_edit.setVisible(False)
+            self._btn_delete.setVisible(False)
+            # Limpiar selección de calendario
+            for b in self._day_buttons:
+                b.setChecked(False)
             return
         user_id = current.data(Qt.ItemDataRole.UserRole)
         if user_id is None:
             self._clear_employee_info()
             self._btn_edit.setEnabled(False)
             self._btn_delete.setEnabled(False)
+            self._btn_edit.setVisible(False)
+            self._btn_delete.setVisible(False)
             return
         user = self._user_service.get_user(int(user_id))
         if user is None:
             self._clear_employee_info()
             self._btn_edit.setEnabled(False)
             self._btn_delete.setEnabled(False)
+            self._btn_edit.setVisible(False)
+            self._btn_delete.setVisible(False)
+            for b in self._day_buttons:
+                b.setChecked(False)
             return
         
         # Setear encabezado
@@ -230,17 +312,42 @@ class MainWindow(QMainWindow):
         self._lbl_docket.setText(f"Legajo: {user.docket}")
         # Estado de la semana y último registro
         registered = self._assign_service.is_registered_this_week(int(user_id))
-        self._lbl_registered.setText(f"Registrado esta semana: {'Sí' if registered else 'No'}")
+        self._reg_value.setText("Sí" if registered else "No")
+        # Aplicar semántica de color en QSS
+        try:
+            self._reg_value.setProperty("status", "yes" if registered else "no")
+            self._reg_value.style().unpolish(self._reg_value)
+            self._reg_value.style().polish(self._reg_value)
+        except Exception:
+            pass
         last = self._assign_service.latest_for_user(int(user_id))
         if last:
-            self._lbl_last_date.setText(f"Último - Fecha: {last.date}")
-            self._lbl_last_day.setText(f"Último - Día: {last.week_day}")
+            self._last_date_value.setText(f"{last.date}")
+            self._last_day_value.setText(f"{last.week_day}")
         else:
-            self._lbl_last_date.setText("Último - Fecha: ")
-            self._lbl_last_day.setText("Último - Día: ")
+            self._last_date_value.setText("")
+            self._last_day_value.setText("")
         # Habilitar acciones al tener un empleado válido
         self._btn_edit.setEnabled(True)
         self._btn_delete.setEnabled(True)
+        self._btn_edit.setVisible(True)
+        self._btn_delete.setVisible(True)
+
+        # Pintar el día de la semana actual si existe registro
+        try:
+            rec = self._assign_service.current_week_record(int(user_id))
+        except Exception:
+            rec = None
+        # Limpiar selección previa
+        for b in self._day_buttons:
+            b.setChecked(False)
+        if rec is not None:
+            # Buscar botón cuyo date_iso coincide con rec.date y marcarlo
+            target_iso = rec.date
+            for b in self._day_buttons:
+                if b.property("date_iso") == target_iso and b.isEnabled():
+                    b.setChecked(True)
+                    break
 
     # ===== Calendario semanal =====
     def _setup_week_ui(self, base: date) -> None:
@@ -288,6 +395,41 @@ class MainWindow(QMainWindow):
             pretty_day = str(date_iso)
 
         try:
+            allow_repeat = False
+            # Advertencia si coincide con el día de la semana anterior
+            try:
+                if self._assign_service.is_same_weekday_as_prev_week(int(user_id), date_iso):
+                    prev_rec = self._assign_service.prev_week_record(int(user_id), date_iso)
+                    if prev_rec:
+                        # Formateo amigable de fecha previa
+                        try:
+                            y, m, d = map(int, str(prev_rec.date).split("-"))
+                            prev_pretty = f"{d:02d}/{m:02d}/{y:04d}"
+                        except Exception:
+                            prev_pretty = str(prev_rec.date)
+                        msg = (
+                            f"La semana pasada registró {prev_rec.week_day} {prev_pretty}.\n\n"
+                            "¿Deseas continuar igualmente?"
+                        )
+                    else:
+                        msg = (
+                            "Este empleado se registró el mismo día la semana anterior.\n\n"
+                            "¿Deseas continuar?"
+                        )
+                    warn = QMessageBox.warning(
+                        self,
+                        "Advertencia",
+                        msg,
+                        QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+                        QMessageBox.StandardButton.No,
+                    )
+                    if warn == QMessageBox.StandardButton.Yes:
+                        allow_repeat = True
+                    else:
+                        return
+            except Exception:
+                pass
+
             if self._assign_service.is_registered_this_week(int(user_id)):
                 resp = QMessageBox.question(
                     self,
@@ -296,7 +438,7 @@ class MainWindow(QMainWindow):
                 )
                 if resp != QMessageBox.StandardButton.Yes:
                     return
-                self._assign_service.change_week_assignment(int(user_id), date_iso)
+                self._assign_service.change_week_assignment(int(user_id), date_iso, allow_repeat_prev_week=allow_repeat)
             else:
                 resp = QMessageBox.question(
                     self,
@@ -305,12 +447,14 @@ class MainWindow(QMainWindow):
                 )
                 if resp != QMessageBox.StandardButton.Yes:
                     return
-                self._assign_service.assign_day(int(user_id), date_iso)
+                self._assign_service.assign_day(int(user_id), date_iso, allow_repeat_prev_week=allow_repeat)
 
             # Refrescar listado y encabezado conservando selección
             selected_id = int(user_id)
             self.load_users()
             self._select_user_in_list(selected_id)
+            # Si el usuario quedó registrado, marcar en lista y calendario
+            # (load_users ya repinta la lista; _on_user_selected marcará calendario)
 
         except AppError as e:
             QMessageBox.warning(self, "Regla de negocio", str(e))
@@ -391,11 +535,14 @@ class MainWindow(QMainWindow):
         if resp != QMessageBox.StandardButton.Yes:
             return
         try:
-            self._user_service.delete_user(int(user_id))
+            # Borrado consistente: eliminar registros y luego usuario
+            self._assign_service.delete_user_and_records(int(user_id))
             self.load_users()
             self._clear_employee_info()
             self._btn_edit.setEnabled(False)
             self._btn_delete.setEnabled(False)
+            self._btn_edit.setVisible(False)
+            self._btn_delete.setVisible(False)
         except AppError as e:
             QMessageBox.warning(self, "Error", str(e))
 

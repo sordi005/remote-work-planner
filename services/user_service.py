@@ -37,4 +37,4 @@ class UserService:
     def delete_user(self, user_id: int) -> None:
         """Elimina un usuario por id."""
         logger.debug("Eliminando usuario id=%s", user_id)
-        self._repo.delete(user_id)
+        self._repo.delete_user(user_id)

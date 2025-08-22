@@ -1,0 +1,191 @@
+/* Tema oscuro moderno unificado (#11151A) */
+* {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 14px;
+    color: #e6ecf1;
+}
+
+QWidget {
+    background: #11151A;
+}
+
+/* Paneles */
+QFrame#headerPanel {
+    background: #11151A;
+    border: 1px solid #1E2329;
+    border-radius: 8px;
+    padding: 12px;
+}
+
+QFrame#infoPanel {
+    background: #11151A;
+    border: 1px dashed #1E2329;
+    border-radius: 8px;
+    padding: 8px 12px;
+}
+
+/* Secciones */
+QLabel[role="section"] {
+    font-size: 12px;
+    color: #9AA6B2;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+QLabel[role="metricTitle"] {
+    color: #9AA6B2;
+    font-size: 12px;
+}
+
+QLabel[role="metricValue"] {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* Lista de empleados */
+QListWidget {
+    background: #11151A;
+    border: 1px solid #1E2329;
+    border-radius: 8px;
+    padding: 6px;
+}
+QListWidget::item {
+    padding: 8px 10px;
+    border-radius: 6px;
+}
+QListWidget::item:selected {
+    background: #192028;
+    color: #ffffff;
+}
+QListWidget::item:hover {
+    background: #161C22;
+}
+
+/* Botones generales */
+QPushButton {
+    background: #11151A;
+    border: 1px solid #1E2329;
+    border-radius: 8px;
+    padding: 8px 12px;
+}
+QPushButton:hover {
+    background: #151A1F;
+    border-color: #2A3036;
+}
+QPushButton:pressed {
+    background: #0F1418;
+    border-color: #353C43;
+}
+QPushButton:disabled {
+    color: #7E8B9A;
+    background: #0E1216;
+}
+
+/* Botones primarios/secundarios/peligro */
+QPushButton[btn="primary"] {
+    background: #1D4ED8; /* azul más integrado al tema */
+    color: #EAF2FF;
+    border: 1px solid #243968;
+}
+QPushButton[btn="primary"]:hover {
+    background: #1A44C6;
+    border-color: #2C4680;
+}
+QPushButton[btn="primary"]:pressed {
+    background: #1739A8;
+    border-color: #263B73;
+}
+QPushButton[btn="secondary"] {
+    background: #11151A;
+    color: #9EC1FF;
+    border: 1px solid #1E2329;
+}
+QPushButton[btn="secondary"]:hover {
+    background: #151A1F;
+    border-color: #2A3036;
+}
+QPushButton[btn="secondary"]:pressed {
+    background: #0F1418;
+    border-color: #353C43;
+}
+QPushButton[btn="danger"] {
+    background: #2A0F12;
+    color: #FF9AA2;
+    border: 1px solid #41181C;
+}
+QPushButton[btn="danger"]:hover {
+    background: #3A1519;
+    border-color: #542026;
+}
+QPushButton[btn="danger"]:pressed {
+    background: #1F0B0E;
+    border-color: #4A1B20;
+}
+
+/* Botones de días del calendario */
+QPushButton[kind="day"] {
+    background: #11151A;
+    border: 1px solid #1E2329;
+    border-radius: 10px;
+    padding: 10px 6px;
+}
+QPushButton[kind="day"]:hover {
+    background: #151A1F;
+    border-color: #2A3036;
+}
+QPushButton[kind="day"]:pressed {
+    background: #0F1418;
+    border-color: #353C43;
+}
+QPushButton[kind="day"]:checked {
+    background: #13321E;
+    border: 2px solid #2F8F4E;
+    color: #CFF3DA;
+}
+QPushButton[kind="day"]:hover:checked {
+    background: #164127;
+    border-color: #3AA964;
+}
+QPushButton[kind="day"]:disabled {
+    background: #0E1216;
+    color: #667482;
+}
+
+/* Título de semana */
+QLabel#weekTitle {
+    color: #9AA6B2;
+}
+
+/* Semántica de estado (registrado sí/no) */
+QLabel[status="yes"] { color: #5BD08A; }
+QLabel[status="no"]  { color: #9AA6B2; }
+
+/* Tooltips acorde al tema */
+QToolTip {
+    background-color: #1A1F25;
+    color: #E6ECF1;
+    border: 1px solid #2A3036;
+    padding: 4px 6px;
+    border-radius: 4px;
+}
+
+/* Scrollbar oscuro sutil */
+QScrollBar:vertical {
+    background: #11151A;
+    width: 10px;
+    margin: 0px;
+}
+QScrollBar::handle:vertical {
+    background: #1E2329;
+    min-height: 24px;
+    border-radius: 5px;
+}
+QScrollBar::handle:vertical:hover {
+    background: #2A3036;
+}
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    height: 0px;
+}
+
+

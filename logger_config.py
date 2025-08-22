@@ -1,13 +1,10 @@
 import logging
-import os
 from datetime import datetime
+from config import LOG_DIR
+import os
 
-# Carpeta de logs
-LOG_DIR = "logs"
-os.makedirs(LOG_DIR, exist_ok=True)
-
-# Nombre de archivo con fecha
-log_filename = os.path.join(LOG_DIR, f"{datetime.now():%Y-%m-%d}.log")
+# Carpeta de logs ya creada en config
+log_filename = os.path.join(str(LOG_DIR), f"{datetime.now():%Y-%m-%d}.log")
 
 # Configuración básica
 logging.basicConfig(

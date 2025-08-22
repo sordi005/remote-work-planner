@@ -105,13 +105,33 @@ class AsignacionService:
                 )
                 raise AppError("No puede repetir el mismo día que la semana anterior.")
 
+    def is_same_weekday_as_prev_week(self, user_id: int, date_iso: str) -> bool:
+        """True si la fecha cae en el mismo día de semana que el registro de la semana anterior."""
+        d = _parse_iso(date_iso)
+        week_day = _WEEKDAY_MAP[d.weekday()]
+        prev_week_day = d - timedelta(days=7)
+        prev_start, prev_end = _week_bounds(prev_week_day)
+        prev = self._records.get_record_in_week(user_id, prev_start, prev_end)
+        if prev is None:
+            return False
+        _prev_id, _prev_date, prev_week_day_name = prev
+        return prev_week_day_name == week_day
+
+    def prev_week_record(self, user_id: int, date_iso: str) -> Optional[Record]:
+        """Devuelve el registro de la semana anterior respecto a `date_iso`, si existe."""
+        d = _parse_iso(date_iso)
+        prev_ref = d - timedelta(days=7)
+        start_iso, end_iso = _week_bounds(prev_ref)
+        row = self._records.get_record_in_week(user_id, start_iso, end_iso)
+        return Record.from_row(row) if row else None
+
     def _ensure_not_registered_this_week(self, user_id: int, ref_date: Optional[date] = None) -> None:
         """Valida que el usuario no posea ya un registro en la semana actual."""
         if self.is_registered_this_week(user_id, ref_date):
             raise YaRegistradoEstaSemana("El empleado ya tiene un registro esta semana.")
 
     # === Operaciones principales ===
-    def assign_day(self, user_id: int, date_iso: str) -> Record:
+    def assign_day(self, user_id: int, date_iso: str, allow_repeat_prev_week: bool = False) -> Record:
         """Asigna fecha aplicando todas las validaciones de negocio."""
         urow = self._users.get_by_id(user_id)
         if not urow:
@@ -121,7 +141,8 @@ class AsignacionService:
         self._validate_in_current_week(d)
         self._validate_day_allowed(d)
         self._ensure_not_registered_this_week(user_id, d)
-        self._validate_not_same_weekday_as_prev_week(user_id, d)
+        if not allow_repeat_prev_week:
+            self._validate_not_same_weekday_as_prev_week(user_id, d)
 
         week_day = _WEEKDAY_MAP[d.weekday()]
         logger.debug("Creando registro user_id=%s fecha=%s dia=%s", user_id, date_iso, week_day)
@@ -139,7 +160,17 @@ class AsignacionService:
             result.append((u, flag))
         return result
 
-    def change_week_assignment(self, user_id: int, date_iso: str) -> Record:
+    def current_week_record(self, user_id: int, ref_date: Optional[date] = None) -> Optional[Record]:
+        """Devuelve el Record de la semana actual para `user_id`, o None si no hay.
+
+        Útil para que la UI pueda resaltar el día ya registrado en la semana.
+        """
+        ref = ref_date or date.today()
+        start_iso, end_iso = _week_bounds(ref)
+        row = self._records.get_record_in_week(user_id, start_iso, end_iso)
+        return Record.from_row(row) if row else None
+
+    def change_week_assignment(self, user_id: int, date_iso: str, allow_repeat_prev_week: bool = False) -> Record:
         """Cambia el registro existente de la semana actual a una nueva fecha válida."""
         urow = self._users.get_by_id(user_id)
         if not urow:
@@ -148,7 +179,8 @@ class AsignacionService:
         d = _parse_iso(date_iso)
         self._validate_in_current_week(d)
         self._validate_day_allowed(d)
-        self._validate_not_same_weekday_as_prev_week(user_id, d)
+        if not allow_repeat_prev_week:
+            self._validate_not_same_weekday_as_prev_week(user_id, d)
 
         # Buscar el registro actual de la semana
         start_iso, end_iso = _week_bounds(d)
@@ -170,6 +202,14 @@ class AsignacionService:
     def delete_all_records_by_user(self, user_id: int) -> None:
         """Elimina todos los registros de un usuario."""
         logger.debug("Eliminando todos los registros para user_id=%s", user_id)
-        self._users.delete_user(user_id)
+        # Primero registros, luego usuario (respeta claves foráneas)
         self._records.delete_all_records_by_user(user_id)
-        logger.info("Todos los registros y usuario eliminados para user_id=%s", user_id)
+        self._users.delete_user(user_id)
+        logger.info("Todos los registros eliminados para user_id=%s", user_id)
+
+    def delete_user_and_records(self, user_id: int) -> None:
+        """Elimina los registros de un usuario y luego el usuario (orden correcto)."""
+        logger.debug("Eliminando usuario y sus registros user_id=%s", user_id)
+        self._records.delete_all_records_by_user(user_id)
+        self._users.delete_user(user_id)
+        logger.info("Usuario y registros eliminados user_id=%s", user_id)
