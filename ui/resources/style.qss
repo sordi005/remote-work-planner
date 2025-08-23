@@ -84,17 +84,17 @@ QPushButton:disabled {
 
 /* Botones primarios/secundarios/peligro */
 QPushButton[btn="primary"] {
-    background: #1D4ED8; /* azul más integrado al tema */
-    color: #EAF2FF;
-    border: 1px solid #243968;
+    background: #2A5EEA; /* azul un poco más destacado */
+    color: #F2F6FF;
+    border: 1px solid #355AE3;
 }
 QPushButton[btn="primary"]:hover {
-    background: #1A44C6;
-    border-color: #2C4680;
+    background: #2F6BFF;
+    border-color: #3B6EEE;
 }
 QPushButton[btn="primary"]:pressed {
-    background: #1739A8;
-    border-color: #263B73;
+    background: #224FDB;
+    border-color: #3358CC;
 }
 QPushButton[btn="secondary"] {
     background: #11151A;
