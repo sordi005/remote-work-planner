@@ -95,9 +95,9 @@ class MainWindow(QMainWindow):
         header_box.addWidget(self._lbl_docket)
 
         # Botones de acción (derecha): Editar / Eliminar
-        self._btn_edit = QPushButton("Editar empleado")
+        self._btn_edit = QPushButton("Editar")
         self._btn_edit.setProperty("btn", "secondary")
-        self._btn_delete = QPushButton("Eliminar empleado")
+        self._btn_delete = QPushButton("Eliminar")
         self._btn_delete.setProperty("btn", "danger")
         self._btn_edit.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self._btn_delete.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
@@ -267,6 +267,42 @@ class MainWindow(QMainWindow):
         _add_items(done)
 
     
+    def _mark_registered_day_for_user(self, user_id: int) -> None:
+        """Sincroniza la cuadrícula con el registro de la semana actual del usuario.
+
+        - Si hay registro: marca el botón correspondiente
+        - Si no hay: desmarca todos
+        """
+        try:
+            rec = self._assign_service.current_week_record(int(user_id))
+        except Exception:
+            rec = None
+        # Limpiar selección previa
+        for b in self._day_buttons:
+            b.setChecked(False)
+        if rec is not None:
+            target_iso = rec.date
+            for b in self._day_buttons:
+                if b.property("date_iso") == target_iso and b.isEnabled():
+                    b.setChecked(True)
+                    break
+        else:
+            # No hay registro esta semana: marcar el último día registrado (por nombre de día)
+            try:
+                last = self._assign_service.latest_for_user(int(user_id))
+            except Exception:
+                last = None
+            if last is not None and last.week_day:
+                weekday_names = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"]
+                try:
+                    idx = weekday_names.index(last.week_day)
+                except ValueError:
+                    idx = -1
+                if 0 <= idx < len(self._day_buttons):
+                    btn = self._day_buttons[idx]
+                    if btn.isEnabled():
+                        btn.setChecked(True)
+
     def _clear_employee_info(self) -> None:
         """Resetea los labels del encabezado cuando no hay selección."""
         self._lbl_name.setText("Nombre completo")
@@ -334,20 +370,7 @@ class MainWindow(QMainWindow):
         self._btn_delete.setVisible(True)
 
         # Pintar el día de la semana actual si existe registro
-        try:
-            rec = self._assign_service.current_week_record(int(user_id))
-        except Exception:
-            rec = None
-        # Limpiar selección previa
-        for b in self._day_buttons:
-            b.setChecked(False)
-        if rec is not None:
-            # Buscar botón cuyo date_iso coincide con rec.date y marcarlo
-            target_iso = rec.date
-            for b in self._day_buttons:
-                if b.property("date_iso") == target_iso and b.isEnabled():
-                    b.setChecked(True)
-                    break
+        self._mark_registered_day_for_user(int(user_id))
 
     # ===== Calendario semanal =====
     def _setup_week_ui(self, base: date) -> None:
@@ -426,6 +449,8 @@ class MainWindow(QMainWindow):
                     if warn == QMessageBox.StandardButton.Yes:
                         allow_repeat = True
                     else:
+                        # Usuario canceló: restaurar selección al estado real
+                        self._mark_registered_day_for_user(int(user_id))
                         return
             except Exception:
                 pass
@@ -437,6 +462,8 @@ class MainWindow(QMainWindow):
                     f"Este empleado ya tiene un registro esta semana.\n\n¿Quieres cambiarlo a {pretty_day}?",
                 )
                 if resp != QMessageBox.StandardButton.Yes:
+                    # Usuario canceló: restaurar selección
+                    self._mark_registered_day_for_user(int(user_id))
                     return
                 self._assign_service.change_week_assignment(int(user_id), date_iso, allow_repeat_prev_week=allow_repeat)
             else:
@@ -446,6 +473,8 @@ class MainWindow(QMainWindow):
                     f"¿Registrar el día {pretty_day} para este empleado?",
                 )
                 if resp != QMessageBox.StandardButton.Yes:
+                    # Usuario canceló: restaurar selección (no había registro esta semana)
+                    self._mark_registered_day_for_user(int(user_id))
                     return
                 self._assign_service.assign_day(int(user_id), date_iso, allow_repeat_prev_week=allow_repeat)
 
@@ -458,6 +487,8 @@ class MainWindow(QMainWindow):
 
         except AppError as e:
             QMessageBox.warning(self, "Regla de negocio", str(e))
+            # Ante error de negocio, restaurar selección real
+            self._mark_registered_day_for_user(int(user_id))
 
     def _select_user_in_list(self, target_id: int) -> None:
         """Selecciona en el sidebar el item cuyo UserRole coincide con `target_id`."""
@@ -548,6 +579,7 @@ class MainWindow(QMainWindow):
 
 
 def run_app() -> None:
+    """Crea QApplication si es necesario y lanza la ventana principal."""
     app = QApplication.instance() or QApplication([])
     win = MainWindow()
     win.show()
