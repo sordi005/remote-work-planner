@@ -17,8 +17,10 @@ from PyQt6.QtWidgets import (
 
 
 class AddUserDialog(QDialog):
-    
-    """Diálogo simple para ingresar nombre y docket del empleado."""
+    """Diálogo simple para ingresar nombre y legajo del empleado.
+
+    Uso: instanciar, `exec()` y luego leer `values()` si aceptado.
+    """
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
         self.setWindowTitle("Agregar usuario")
@@ -41,6 +43,7 @@ class AddUserDialog(QDialog):
         layout.addLayout(btns)
 
     def values(self) -> tuple[str, str]:
+        """Devuelve (nombre, legajo) sin espacios laterales."""
         return self._name.text().strip(), self._docket.text().strip()
 
 
@@ -67,6 +70,7 @@ class AssignDayDialog(QDialog):
         layout.addLayout(btns)
 
     def date_iso(self) -> str:
+        """Fecha seleccionada en formato YYYY-MM-DD (ISO)."""
         qd = self._date.date()
         return f"{qd.year():04d}-{qd.month():02d}-{qd.day():02d}"
 

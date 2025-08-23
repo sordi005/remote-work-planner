@@ -1,4 +1,11 @@
-"""Configuración global: rutas y parámetros compartidos."""
+"""Configuración global: rutas y parámetros compartidos.
+
+- BASE_DIR: base del proyecto (o bundle PyInstaller)
+- APP_DIR: carpeta de datos persistentes del usuario (Windows %LOCALAPPDATA%)
+- DB_PATH: ruta al archivo SQLite (persistente, fuera del bundle)
+- RESOURCES_DIR: recursos de UI (QSS, iconos)
+- LOG_DIR: carpeta para logs diarios
+"""
 
 import sys
 import os
