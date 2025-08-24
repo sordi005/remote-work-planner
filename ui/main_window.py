@@ -48,8 +48,8 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("Trabajo Remoto - Gestor")
         self.resize(1200, 700)
-        # Mínimos más flexibles para permitir achicar la UI sin romper labels
-        self.setMinimumSize(1160, 640)
+        # Mínimos más flexibles para permitir notebooks y pantallas pequeñas
+        self.setMinimumSize(960, 600)
         self._user_service = UserService()
         self._assign_service = AsignacionService()
 
@@ -332,6 +332,9 @@ class MainWindow(QMainWindow):
                     self.setStyleSheet(f.read())
         except Exception:
             pass
+
+        # Flag para centrar y adaptar tamaño solo una vez al mostrarse
+        self._did_center_once = False
 
     def load_users(self) -> None:
         """Carga y pinta el listado de empleados en el sidebar.
@@ -681,6 +684,40 @@ class MainWindow(QMainWindow):
         except AppError as e:
             QMessageBox.warning(self, "Error", str(e))
 
+
+    def _apply_adaptive_size_and_center(self) -> None:
+        """Ajusta tamaño inicial según pantalla y centra la ventana.
+
+        Usa un porcentaje del área disponible del monitor actual para que se vea
+        bien en notebooks y monitores grandes, y centra la ventana.
+        """
+        try:
+            screen = self.screen() or QApplication.primaryScreen()
+            if screen is None:
+                return
+            avail = screen.availableGeometry()
+            screen_w, screen_h = avail.width(), avail.height()
+            # Usar un porcentaje del tamaño de pantalla dentro de límites razonables
+            target_w = min(1200, max(self.minimumWidth(), int(screen_w * 0.86)))
+            target_h = min(700, max(self.minimumHeight(), int(screen_h * 0.82)))
+            # Evitar que el mínimo supere al target en pantallas pequeñas
+            if self.minimumWidth() > target_w or self.minimumHeight() > target_h:
+                self.setMinimumSize(min(self.minimumWidth(), target_w), min(self.minimumHeight(), target_h))
+            self.resize(target_w, target_h)
+
+            # Centrar en el área disponible (considera barra de tareas)
+            geo = self.frameGeometry()
+            geo.moveCenter(avail.center())
+            self.move(geo.topLeft())
+        except Exception:
+            pass
+
+    def showEvent(self, event) -> None:
+        """Centro y adapto el tamaño en el primer show para la pantalla actual."""
+        super().showEvent(event)
+        if not getattr(self, "_did_center_once", False):
+            self._apply_adaptive_size_and_center()
+            self._did_center_once = True
 
 def run_app() -> None:
     """Crea QApplication si es necesario y lanza la ventana principal."""
