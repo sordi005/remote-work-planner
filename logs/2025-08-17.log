@@ -1,0 +1,668 @@
+2025-08-17 19:12:13 [INFO] GestorEmpleados: Aplicación iniciando
+2025-08-17 19:12:13 [DEBUG] GestorEmpleados: Creando/verificando tablas de badse de datos...
+2025-08-17 19:12:13 [DEBUG] data.schema: Creando/verificando tablas 'users' y 'records'
+2025-08-17 19:12:13 [INFO] data.schema: Tablas listas: users, records
+2025-08-17 19:12:13 [INFO] GestorEmpleados: Tablas listas
+2025-08-17 19:12:13 [DEBUG] GestorEmpleados: Abriendo conexión de prueba a la base de datos...
+2025-08-17 19:12:13 [INFO] GestorEmpleados: Conexión a la base de datos OK
+2025-08-17 19:12:13 [DEBUG] GestorEmpleados: Conexión a la base de datos cerrada
+2025-08-17 19:12:13 [DEBUG] data.user_repo: Listando todos los usuarios
+2025-08-17 19:12:13 [INFO] data.user_repo: Usuarios obtenidos: 5
+2025-08-17 19:12:25 [DEBUG] data.user_repo: Obteniendo usuario id=6
+2025-08-17 19:12:25 [INFO] data.user_repo: Usuario encontrado=True id=6
+2025-08-17 19:12:25 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=6 start=2025-08-11 end=2025-08-17
+2025-08-17 19:12:25 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=6 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:12:25 [INFO] data.assignament_repo: Existe registro en semana user_id=6 -> True
+2025-08-17 19:12:25 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=6
+2025-08-17 19:12:25 [INFO] data.assignament_repo: Último registro para user_id=6: True
+2025-08-17 19:13:05 [DEBUG] data.user_repo: Obteniendo usuario id=7
+2025-08-17 19:13:05 [INFO] data.user_repo: Usuario encontrado=True id=7
+2025-08-17 19:13:05 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=7 start=2025-08-11 end=2025-08-17
+2025-08-17 19:13:05 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=7 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:13:05 [INFO] data.assignament_repo: Existe registro en semana user_id=7 -> True
+2025-08-17 19:13:05 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=7
+2025-08-17 19:13:05 [INFO] data.assignament_repo: Último registro para user_id=7: True
+2025-08-17 19:13:06 [DEBUG] data.user_repo: Obteniendo usuario id=7
+2025-08-17 19:13:06 [INFO] data.user_repo: Usuario encontrado=True id=7
+2025-08-17 19:13:15 [DEBUG] services.user_service: Actualizando usuario id=7 name=yordi docket=np
+2025-08-17 19:13:15 [DEBUG] data.user_repo: Actualizando usuario id=7 name=yordi docket=np
+2025-08-17 19:13:15 [INFO] data.user_repo: Usuario actualizado id=7
+2025-08-17 19:13:15 [DEBUG] data.user_repo: Listando todos los usuarios
+2025-08-17 19:13:15 [INFO] data.user_repo: Usuarios obtenidos: 5
+2025-08-17 19:13:15 [DEBUG] data.user_repo: Obteniendo usuario id=7
+2025-08-17 19:13:15 [INFO] data.user_repo: Usuario encontrado=True id=7
+2025-08-17 19:13:15 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=7 start=2025-08-11 end=2025-08-17
+2025-08-17 19:13:15 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=7 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:13:15 [INFO] data.assignament_repo: Existe registro en semana user_id=7 -> True
+2025-08-17 19:13:15 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=7
+2025-08-17 19:13:15 [INFO] data.assignament_repo: Último registro para user_id=7: True
+2025-08-17 19:13:29 [DEBUG] data.user_repo: Obteniendo usuario id=6
+2025-08-17 19:13:29 [INFO] data.user_repo: Usuario encontrado=True id=6
+2025-08-17 19:13:29 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=6 start=2025-08-11 end=2025-08-17
+2025-08-17 19:13:29 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=6 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:13:29 [INFO] data.assignament_repo: Existe registro en semana user_id=6 -> True
+2025-08-17 19:13:29 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=6
+2025-08-17 19:13:29 [INFO] data.assignament_repo: Último registro para user_id=6: True
+2025-08-17 19:13:33 [DEBUG] services.user_service: Eliminando usuario id=6
+2025-08-17 19:18:04 [INFO] GestorEmpleados: Aplicación iniciando
+2025-08-17 19:18:04 [DEBUG] GestorEmpleados: Creando/verificando tablas de badse de datos...
+2025-08-17 19:18:04 [DEBUG] data.schema: Creando/verificando tablas 'users' y 'records'
+2025-08-17 19:18:04 [INFO] data.schema: Tablas listas: users, records
+2025-08-17 19:18:04 [INFO] GestorEmpleados: Tablas listas
+2025-08-17 19:18:04 [DEBUG] GestorEmpleados: Abriendo conexión de prueba a la base de datos...
+2025-08-17 19:18:04 [INFO] GestorEmpleados: Conexión a la base de datos OK
+2025-08-17 19:18:04 [DEBUG] GestorEmpleados: Conexión a la base de datos cerrada
+2025-08-17 19:18:04 [DEBUG] data.user_repo: Listando todos los usuarios
+2025-08-17 19:18:04 [INFO] data.user_repo: Usuarios obtenidos: 5
+2025-08-17 19:18:08 [DEBUG] data.user_repo: Obteniendo usuario id=6
+2025-08-17 19:18:08 [INFO] data.user_repo: Usuario encontrado=True id=6
+2025-08-17 19:18:08 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=6 start=2025-08-11 end=2025-08-17
+2025-08-17 19:18:08 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=6 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:18:08 [INFO] data.assignament_repo: Existe registro en semana user_id=6 -> True
+2025-08-17 19:18:08 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=6
+2025-08-17 19:18:08 [INFO] data.assignament_repo: Último registro para user_id=6: True
+2025-08-17 19:18:26 [DEBUG] services.user_service: Eliminando usuario id=6
+2025-08-17 19:18:26 [DEBUG] data.user_repo: Eliminando usuario id=6
+2025-08-17 19:18:26 [INFO] data.user_repo: Usuario eliminado id=6
+2025-08-17 19:18:26 [DEBUG] data.user_repo: Listando todos los usuarios
+2025-08-17 19:18:26 [INFO] data.user_repo: Usuarios obtenidos: 4
+2025-08-17 19:18:35 [DEBUG] data.user_repo: Obteniendo usuario id=5
+2025-08-17 19:18:35 [INFO] data.user_repo: Usuario encontrado=True id=5
+2025-08-17 19:18:35 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=5 start=2025-08-11 end=2025-08-17
+2025-08-17 19:18:35 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=5 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:18:35 [INFO] data.assignament_repo: Existe registro en semana user_id=5 -> True
+2025-08-17 19:18:35 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=5
+2025-08-17 19:18:35 [INFO] data.assignament_repo: Último registro para user_id=5: True
+2025-08-17 19:18:36 [DEBUG] data.user_repo: Obteniendo usuario id=7
+2025-08-17 19:18:36 [INFO] data.user_repo: Usuario encontrado=True id=7
+2025-08-17 19:18:36 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=7 start=2025-08-11 end=2025-08-17
+2025-08-17 19:18:36 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=7 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:18:36 [INFO] data.assignament_repo: Existe registro en semana user_id=7 -> True
+2025-08-17 19:18:36 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=7
+2025-08-17 19:18:36 [INFO] data.assignament_repo: Último registro para user_id=7: True
+2025-08-17 19:18:36 [DEBUG] data.user_repo: Obteniendo usuario id=5
+2025-08-17 19:18:36 [INFO] data.user_repo: Usuario encontrado=True id=5
+2025-08-17 19:18:36 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=5 start=2025-08-11 end=2025-08-17
+2025-08-17 19:18:36 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=5 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:18:36 [INFO] data.assignament_repo: Existe registro en semana user_id=5 -> True
+2025-08-17 19:18:36 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=5
+2025-08-17 19:18:36 [INFO] data.assignament_repo: Último registro para user_id=5: True
+2025-08-17 19:26:26 [INFO] GestorEmpleados: Aplicación finalizada
+2025-08-17 19:26:32 [INFO] GestorEmpleados: Aplicación iniciando
+2025-08-17 19:26:32 [DEBUG] GestorEmpleados: Creando/verificando tablas de badse de datos...
+2025-08-17 19:26:32 [DEBUG] data.schema: Creando/verificando tablas 'users' y 'records'
+2025-08-17 19:26:32 [INFO] data.schema: Tablas listas: users, records
+2025-08-17 19:26:32 [INFO] GestorEmpleados: Tablas listas
+2025-08-17 19:26:32 [DEBUG] GestorEmpleados: Abriendo conexión de prueba a la base de datos...
+2025-08-17 19:26:32 [INFO] GestorEmpleados: Conexión a la base de datos OK
+2025-08-17 19:26:32 [DEBUG] GestorEmpleados: Conexión a la base de datos cerrada
+2025-08-17 19:26:32 [DEBUG] data.user_repo: Listando todos los usuarios
+2025-08-17 19:26:32 [INFO] data.user_repo: Usuarios obtenidos: 4
+2025-08-17 19:26:35 [DEBUG] data.user_repo: Obteniendo usuario id=4
+2025-08-17 19:26:35 [INFO] data.user_repo: Usuario encontrado=True id=4
+2025-08-17 19:26:35 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=4 start=2025-08-11 end=2025-08-17
+2025-08-17 19:26:35 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=4 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:35 [INFO] data.assignament_repo: Existe registro en semana user_id=4 -> True
+2025-08-17 19:26:35 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=4
+2025-08-17 19:26:35 [INFO] data.assignament_repo: Último registro para user_id=4: True
+2025-08-17 19:26:35 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=4 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:35 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=4 -> True
+2025-08-17 19:26:36 [DEBUG] data.user_repo: Obteniendo usuario id=5
+2025-08-17 19:26:36 [INFO] data.user_repo: Usuario encontrado=True id=5
+2025-08-17 19:26:36 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=5 start=2025-08-11 end=2025-08-17
+2025-08-17 19:26:36 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=5 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:36 [INFO] data.assignament_repo: Existe registro en semana user_id=5 -> True
+2025-08-17 19:26:36 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=5
+2025-08-17 19:26:36 [INFO] data.assignament_repo: Último registro para user_id=5: True
+2025-08-17 19:26:36 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=5 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:36 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=5 -> True
+2025-08-17 19:26:36 [DEBUG] data.user_repo: Obteniendo usuario id=7
+2025-08-17 19:26:36 [INFO] data.user_repo: Usuario encontrado=True id=7
+2025-08-17 19:26:36 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=7 start=2025-08-11 end=2025-08-17
+2025-08-17 19:26:36 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=7 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:36 [INFO] data.assignament_repo: Existe registro en semana user_id=7 -> True
+2025-08-17 19:26:36 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=7
+2025-08-17 19:26:36 [INFO] data.assignament_repo: Último registro para user_id=7: True
+2025-08-17 19:26:36 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=7 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:36 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=7 -> True
+2025-08-17 19:26:38 [DEBUG] data.user_repo: Obteniendo usuario id=3
+2025-08-17 19:26:38 [INFO] data.user_repo: Usuario encontrado=True id=3
+2025-08-17 19:26:38 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=3 start=2025-08-11 end=2025-08-17
+2025-08-17 19:26:38 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=3 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:38 [INFO] data.assignament_repo: Existe registro en semana user_id=3 -> True
+2025-08-17 19:26:38 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=3
+2025-08-17 19:26:38 [INFO] data.assignament_repo: Último registro para user_id=3: True
+2025-08-17 19:26:38 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=3 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:38 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=3 -> True
+2025-08-17 19:26:39 [DEBUG] data.user_repo: Obteniendo usuario id=4
+2025-08-17 19:26:39 [INFO] data.user_repo: Usuario encontrado=True id=4
+2025-08-17 19:26:39 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=4 start=2025-08-11 end=2025-08-17
+2025-08-17 19:26:39 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=4 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:39 [INFO] data.assignament_repo: Existe registro en semana user_id=4 -> True
+2025-08-17 19:26:39 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=4
+2025-08-17 19:26:39 [INFO] data.assignament_repo: Último registro para user_id=4: True
+2025-08-17 19:26:39 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=4 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:39 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=4 -> True
+2025-08-17 19:26:41 [DEBUG] data.user_repo: Obteniendo usuario id=7
+2025-08-17 19:26:41 [INFO] data.user_repo: Usuario encontrado=True id=7
+2025-08-17 19:26:41 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=7 start=2025-08-11 end=2025-08-17
+2025-08-17 19:26:41 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=7 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:41 [INFO] data.assignament_repo: Existe registro en semana user_id=7 -> True
+2025-08-17 19:26:41 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=7
+2025-08-17 19:26:41 [INFO] data.assignament_repo: Último registro para user_id=7: True
+2025-08-17 19:26:41 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=7 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:41 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=7 -> True
+2025-08-17 19:26:41 [DEBUG] data.user_repo: Obteniendo usuario id=5
+2025-08-17 19:26:41 [INFO] data.user_repo: Usuario encontrado=True id=5
+2025-08-17 19:26:41 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=5 start=2025-08-11 end=2025-08-17
+2025-08-17 19:26:41 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=5 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:41 [INFO] data.assignament_repo: Existe registro en semana user_id=5 -> True
+2025-08-17 19:26:41 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=5
+2025-08-17 19:26:41 [INFO] data.assignament_repo: Último registro para user_id=5: True
+2025-08-17 19:26:41 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=5 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:41 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=5 -> True
+2025-08-17 19:26:42 [DEBUG] data.user_repo: Obteniendo usuario id=7
+2025-08-17 19:26:42 [INFO] data.user_repo: Usuario encontrado=True id=7
+2025-08-17 19:26:42 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=7 start=2025-08-11 end=2025-08-17
+2025-08-17 19:26:42 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=7 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:42 [INFO] data.assignament_repo: Existe registro en semana user_id=7 -> True
+2025-08-17 19:26:42 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=7
+2025-08-17 19:26:42 [INFO] data.assignament_repo: Último registro para user_id=7: True
+2025-08-17 19:26:42 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=7 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:42 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=7 -> True
+2025-08-17 19:26:42 [DEBUG] data.user_repo: Obteniendo usuario id=5
+2025-08-17 19:26:42 [INFO] data.user_repo: Usuario encontrado=True id=5
+2025-08-17 19:26:42 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=5 start=2025-08-11 end=2025-08-17
+2025-08-17 19:26:42 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=5 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:42 [INFO] data.assignament_repo: Existe registro en semana user_id=5 -> True
+2025-08-17 19:26:42 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=5
+2025-08-17 19:26:42 [INFO] data.assignament_repo: Último registro para user_id=5: True
+2025-08-17 19:26:42 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=5 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:42 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=5 -> True
+2025-08-17 19:26:43 [DEBUG] data.user_repo: Obteniendo usuario id=3
+2025-08-17 19:26:43 [INFO] data.user_repo: Usuario encontrado=True id=3
+2025-08-17 19:26:43 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=3 start=2025-08-11 end=2025-08-17
+2025-08-17 19:26:43 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=3 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:43 [INFO] data.assignament_repo: Existe registro en semana user_id=3 -> True
+2025-08-17 19:26:43 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=3
+2025-08-17 19:26:43 [INFO] data.assignament_repo: Último registro para user_id=3: True
+2025-08-17 19:26:43 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=3 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:43 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=3 -> True
+2025-08-17 19:26:43 [DEBUG] data.user_repo: Obteniendo usuario id=4
+2025-08-17 19:26:43 [INFO] data.user_repo: Usuario encontrado=True id=4
+2025-08-17 19:26:43 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=4 start=2025-08-11 end=2025-08-17
+2025-08-17 19:26:43 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=4 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:43 [INFO] data.assignament_repo: Existe registro en semana user_id=4 -> True
+2025-08-17 19:26:43 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=4
+2025-08-17 19:26:43 [INFO] data.assignament_repo: Último registro para user_id=4: True
+2025-08-17 19:26:43 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=4 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:43 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=4 -> True
+2025-08-17 19:26:44 [DEBUG] data.user_repo: Obteniendo usuario id=5
+2025-08-17 19:26:44 [INFO] data.user_repo: Usuario encontrado=True id=5
+2025-08-17 19:26:44 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=5 start=2025-08-11 end=2025-08-17
+2025-08-17 19:26:44 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=5 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:44 [INFO] data.assignament_repo: Existe registro en semana user_id=5 -> True
+2025-08-17 19:26:44 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=5
+2025-08-17 19:26:44 [INFO] data.assignament_repo: Último registro para user_id=5: True
+2025-08-17 19:26:44 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=5 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:44 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=5 -> True
+2025-08-17 19:26:44 [DEBUG] data.user_repo: Obteniendo usuario id=7
+2025-08-17 19:26:44 [INFO] data.user_repo: Usuario encontrado=True id=7
+2025-08-17 19:26:44 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=7 start=2025-08-11 end=2025-08-17
+2025-08-17 19:26:44 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=7 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:44 [INFO] data.assignament_repo: Existe registro en semana user_id=7 -> True
+2025-08-17 19:26:44 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=7
+2025-08-17 19:26:44 [INFO] data.assignament_repo: Último registro para user_id=7: True
+2025-08-17 19:26:44 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=7 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:44 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=7 -> True
+2025-08-17 19:26:45 [DEBUG] data.user_repo: Obteniendo usuario id=5
+2025-08-17 19:26:45 [INFO] data.user_repo: Usuario encontrado=True id=5
+2025-08-17 19:26:45 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=5 start=2025-08-11 end=2025-08-17
+2025-08-17 19:26:45 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=5 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:45 [INFO] data.assignament_repo: Existe registro en semana user_id=5 -> True
+2025-08-17 19:26:45 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=5
+2025-08-17 19:26:45 [INFO] data.assignament_repo: Último registro para user_id=5: True
+2025-08-17 19:26:45 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=5 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:45 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=5 -> True
+2025-08-17 19:26:45 [DEBUG] data.user_repo: Obteniendo usuario id=7
+2025-08-17 19:26:45 [INFO] data.user_repo: Usuario encontrado=True id=7
+2025-08-17 19:26:45 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=7 start=2025-08-11 end=2025-08-17
+2025-08-17 19:26:45 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=7 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:45 [INFO] data.assignament_repo: Existe registro en semana user_id=7 -> True
+2025-08-17 19:26:45 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=7
+2025-08-17 19:26:45 [INFO] data.assignament_repo: Último registro para user_id=7: True
+2025-08-17 19:26:45 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=7 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:45 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=7 -> True
+2025-08-17 19:26:46 [DEBUG] data.user_repo: Obteniendo usuario id=5
+2025-08-17 19:26:46 [INFO] data.user_repo: Usuario encontrado=True id=5
+2025-08-17 19:26:46 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=5 start=2025-08-11 end=2025-08-17
+2025-08-17 19:26:46 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=5 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:46 [INFO] data.assignament_repo: Existe registro en semana user_id=5 -> True
+2025-08-17 19:26:46 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=5
+2025-08-17 19:26:46 [INFO] data.assignament_repo: Último registro para user_id=5: True
+2025-08-17 19:26:46 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=5 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:46 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=5 -> True
+2025-08-17 19:26:46 [DEBUG] data.user_repo: Obteniendo usuario id=3
+2025-08-17 19:26:46 [INFO] data.user_repo: Usuario encontrado=True id=3
+2025-08-17 19:26:46 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=3 start=2025-08-11 end=2025-08-17
+2025-08-17 19:26:46 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=3 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:46 [INFO] data.assignament_repo: Existe registro en semana user_id=3 -> True
+2025-08-17 19:26:46 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=3
+2025-08-17 19:26:46 [INFO] data.assignament_repo: Último registro para user_id=3: True
+2025-08-17 19:26:46 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=3 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:46 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=3 -> True
+2025-08-17 19:26:46 [DEBUG] data.user_repo: Obteniendo usuario id=4
+2025-08-17 19:26:46 [INFO] data.user_repo: Usuario encontrado=True id=4
+2025-08-17 19:26:46 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=4 start=2025-08-11 end=2025-08-17
+2025-08-17 19:26:46 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=4 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:46 [INFO] data.assignament_repo: Existe registro en semana user_id=4 -> True
+2025-08-17 19:26:46 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=4
+2025-08-17 19:26:46 [INFO] data.assignament_repo: Último registro para user_id=4: True
+2025-08-17 19:26:46 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=4 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:46 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=4 -> True
+2025-08-17 19:26:47 [DEBUG] data.user_repo: Obteniendo usuario id=5
+2025-08-17 19:26:47 [INFO] data.user_repo: Usuario encontrado=True id=5
+2025-08-17 19:26:47 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=5 start=2025-08-11 end=2025-08-17
+2025-08-17 19:26:47 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=5 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:47 [INFO] data.assignament_repo: Existe registro en semana user_id=5 -> True
+2025-08-17 19:26:47 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=5
+2025-08-17 19:26:47 [INFO] data.assignament_repo: Último registro para user_id=5: True
+2025-08-17 19:26:47 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=5 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:47 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=5 -> True
+2025-08-17 19:26:47 [DEBUG] data.user_repo: Obteniendo usuario id=7
+2025-08-17 19:26:47 [INFO] data.user_repo: Usuario encontrado=True id=7
+2025-08-17 19:26:47 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=7 start=2025-08-11 end=2025-08-17
+2025-08-17 19:26:47 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=7 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:47 [INFO] data.assignament_repo: Existe registro en semana user_id=7 -> True
+2025-08-17 19:26:47 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=7
+2025-08-17 19:26:47 [INFO] data.assignament_repo: Último registro para user_id=7: True
+2025-08-17 19:26:47 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=7 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:47 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=7 -> True
+2025-08-17 19:26:48 [DEBUG] data.user_repo: Obteniendo usuario id=5
+2025-08-17 19:26:48 [INFO] data.user_repo: Usuario encontrado=True id=5
+2025-08-17 19:26:48 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=5 start=2025-08-11 end=2025-08-17
+2025-08-17 19:26:48 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=5 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:48 [INFO] data.assignament_repo: Existe registro en semana user_id=5 -> True
+2025-08-17 19:26:48 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=5
+2025-08-17 19:26:48 [INFO] data.assignament_repo: Último registro para user_id=5: True
+2025-08-17 19:26:48 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=5 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:48 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=5 -> True
+2025-08-17 19:26:48 [DEBUG] data.user_repo: Obteniendo usuario id=4
+2025-08-17 19:26:48 [INFO] data.user_repo: Usuario encontrado=True id=4
+2025-08-17 19:26:48 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=4 start=2025-08-11 end=2025-08-17
+2025-08-17 19:26:48 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=4 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:48 [INFO] data.assignament_repo: Existe registro en semana user_id=4 -> True
+2025-08-17 19:26:48 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=4
+2025-08-17 19:26:48 [INFO] data.assignament_repo: Último registro para user_id=4: True
+2025-08-17 19:26:48 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=4 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:48 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=4 -> True
+2025-08-17 19:26:49 [DEBUG] data.user_repo: Obteniendo usuario id=3
+2025-08-17 19:26:49 [INFO] data.user_repo: Usuario encontrado=True id=3
+2025-08-17 19:26:49 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=3 start=2025-08-11 end=2025-08-17
+2025-08-17 19:26:49 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=3 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:49 [INFO] data.assignament_repo: Existe registro en semana user_id=3 -> True
+2025-08-17 19:26:49 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=3
+2025-08-17 19:26:49 [INFO] data.assignament_repo: Último registro para user_id=3: True
+2025-08-17 19:26:49 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=3 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:26:49 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=3 -> True
+2025-08-17 19:27:52 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=3 start=2025-08-11 end=2025-08-17
+2025-08-17 19:27:52 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=3 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:27:52 [INFO] data.assignament_repo: Existe registro en semana user_id=3 -> True
+2025-08-17 19:28:32 [INFO] GestorEmpleados: Aplicación finalizada
+2025-08-17 19:28:32 [INFO] GestorEmpleados: Aplicación iniciando
+2025-08-17 19:28:32 [DEBUG] GestorEmpleados: Creando/verificando tablas de badse de datos...
+2025-08-17 19:28:32 [DEBUG] data.schema: Creando/verificando tablas 'users' y 'records'
+2025-08-17 19:28:32 [INFO] data.schema: Tablas listas: users, records
+2025-08-17 19:28:32 [INFO] GestorEmpleados: Tablas listas
+2025-08-17 19:28:32 [DEBUG] GestorEmpleados: Abriendo conexión de prueba a la base de datos...
+2025-08-17 19:28:32 [INFO] GestorEmpleados: Conexión a la base de datos OK
+2025-08-17 19:28:32 [DEBUG] GestorEmpleados: Conexión a la base de datos cerrada
+2025-08-17 19:28:32 [DEBUG] data.user_repo: Listando todos los usuarios
+2025-08-17 19:28:32 [INFO] data.user_repo: Usuarios obtenidos: 4
+2025-08-17 19:28:32 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=3 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:28:32 [INFO] data.assignament_repo: Existe registro en semana user_id=3 -> True
+2025-08-17 19:28:32 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=4 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:28:32 [INFO] data.assignament_repo: Existe registro en semana user_id=4 -> True
+2025-08-17 19:28:32 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=5 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:28:32 [INFO] data.assignament_repo: Existe registro en semana user_id=5 -> True
+2025-08-17 19:28:32 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=7 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:28:32 [INFO] data.assignament_repo: Existe registro en semana user_id=7 -> True
+2025-08-17 19:28:36 [INFO] GestorEmpleados: Aplicación finalizada
+2025-08-17 19:28:36 [INFO] GestorEmpleados: Aplicación iniciando
+2025-08-17 19:28:36 [DEBUG] GestorEmpleados: Creando/verificando tablas de badse de datos...
+2025-08-17 19:28:36 [DEBUG] data.schema: Creando/verificando tablas 'users' y 'records'
+2025-08-17 19:28:36 [INFO] data.schema: Tablas listas: users, records
+2025-08-17 19:28:36 [INFO] GestorEmpleados: Tablas listas
+2025-08-17 19:28:36 [DEBUG] GestorEmpleados: Abriendo conexión de prueba a la base de datos...
+2025-08-17 19:28:36 [INFO] GestorEmpleados: Conexión a la base de datos OK
+2025-08-17 19:28:36 [DEBUG] GestorEmpleados: Conexión a la base de datos cerrada
+2025-08-17 19:28:36 [DEBUG] data.user_repo: Listando todos los usuarios
+2025-08-17 19:28:36 [INFO] data.user_repo: Usuarios obtenidos: 4
+2025-08-17 19:28:36 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=3 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:28:36 [INFO] data.assignament_repo: Existe registro en semana user_id=3 -> True
+2025-08-17 19:28:36 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=4 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:28:36 [INFO] data.assignament_repo: Existe registro en semana user_id=4 -> True
+2025-08-17 19:28:36 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=5 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:28:36 [INFO] data.assignament_repo: Existe registro en semana user_id=5 -> True
+2025-08-17 19:28:36 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=7 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:28:36 [INFO] data.assignament_repo: Existe registro en semana user_id=7 -> True
+2025-08-17 19:28:37 [INFO] GestorEmpleados: Aplicación finalizada
+2025-08-17 19:28:41 [INFO] GestorEmpleados: Aplicación iniciando
+2025-08-17 19:28:41 [DEBUG] GestorEmpleados: Creando/verificando tablas de badse de datos...
+2025-08-17 19:28:41 [DEBUG] data.schema: Creando/verificando tablas 'users' y 'records'
+2025-08-17 19:28:41 [INFO] data.schema: Tablas listas: users, records
+2025-08-17 19:28:41 [INFO] GestorEmpleados: Tablas listas
+2025-08-17 19:28:41 [DEBUG] GestorEmpleados: Abriendo conexión de prueba a la base de datos...
+2025-08-17 19:28:41 [INFO] GestorEmpleados: Conexión a la base de datos OK
+2025-08-17 19:28:41 [DEBUG] GestorEmpleados: Conexión a la base de datos cerrada
+2025-08-17 19:28:41 [DEBUG] data.user_repo: Listando todos los usuarios
+2025-08-17 19:28:41 [INFO] data.user_repo: Usuarios obtenidos: 4
+2025-08-17 19:28:41 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=3 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:28:41 [INFO] data.assignament_repo: Existe registro en semana user_id=3 -> True
+2025-08-17 19:28:41 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=4 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:28:41 [INFO] data.assignament_repo: Existe registro en semana user_id=4 -> True
+2025-08-17 19:28:41 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=5 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:28:41 [INFO] data.assignament_repo: Existe registro en semana user_id=5 -> True
+2025-08-17 19:28:41 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=7 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:28:41 [INFO] data.assignament_repo: Existe registro en semana user_id=7 -> True
+2025-08-17 19:28:53 [DEBUG] data.user_repo: Obteniendo usuario id=5
+2025-08-17 19:28:53 [INFO] data.user_repo: Usuario encontrado=True id=5
+2025-08-17 19:28:53 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=5 start=2025-08-11 end=2025-08-17
+2025-08-17 19:28:53 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=5 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:28:53 [INFO] data.assignament_repo: Existe registro en semana user_id=5 -> True
+2025-08-17 19:28:53 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=5
+2025-08-17 19:28:53 [INFO] data.assignament_repo: Último registro para user_id=5: True
+2025-08-17 19:28:53 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=5 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:28:53 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=5 -> True
+2025-08-17 19:28:55 [DEBUG] data.user_repo: Obteniendo usuario id=4
+2025-08-17 19:28:55 [INFO] data.user_repo: Usuario encontrado=True id=4
+2025-08-17 19:28:55 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=4 start=2025-08-11 end=2025-08-17
+2025-08-17 19:28:55 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=4 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:28:55 [INFO] data.assignament_repo: Existe registro en semana user_id=4 -> True
+2025-08-17 19:28:55 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=4
+2025-08-17 19:28:55 [INFO] data.assignament_repo: Último registro para user_id=4: True
+2025-08-17 19:28:55 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=4 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:28:55 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=4 -> True
+2025-08-17 19:28:57 [DEBUG] data.user_repo: Obteniendo usuario id=3
+2025-08-17 19:28:57 [INFO] data.user_repo: Usuario encontrado=True id=3
+2025-08-17 19:28:57 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=3 start=2025-08-11 end=2025-08-17
+2025-08-17 19:28:57 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=3 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:28:57 [INFO] data.assignament_repo: Existe registro en semana user_id=3 -> True
+2025-08-17 19:28:57 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=3
+2025-08-17 19:28:57 [INFO] data.assignament_repo: Último registro para user_id=3: True
+2025-08-17 19:28:57 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=3 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:28:57 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=3 -> True
+2025-08-17 19:28:57 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=3 start=2025-08-11 end=2025-08-17
+2025-08-17 19:28:57 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=3 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:28:57 [INFO] data.assignament_repo: Existe registro en semana user_id=3 -> True
+2025-08-17 19:29:01 [DEBUG] data.user_repo: Obteniendo usuario id=3
+2025-08-17 19:29:01 [INFO] data.user_repo: Usuario encontrado=True id=3
+2025-08-17 19:29:01 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=3 inicio=2025-08-04 fin=2025-08-10
+2025-08-17 19:29:01 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=3 -> False
+2025-08-17 19:29:01 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=3 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:29:01 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=3 -> True
+2025-08-17 19:29:01 [DEBUG] data.assignament_repo: Actualizando registro id=3 nueva_fecha=2025-08-13 nuevo_dia=Miércoles
+2025-08-17 19:29:01 [INFO] data.assignament_repo: Registro actualizado id=3
+2025-08-17 19:29:01 [INFO] services.assignment_service: Registro cambiado id=3 user_id=3 nueva_fecha=2025-08-13 nuevo_dia=Miércoles
+2025-08-17 19:29:01 [DEBUG] data.user_repo: Listando todos los usuarios
+2025-08-17 19:29:01 [INFO] data.user_repo: Usuarios obtenidos: 4
+2025-08-17 19:29:01 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=3 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:29:01 [INFO] data.assignament_repo: Existe registro en semana user_id=3 -> True
+2025-08-17 19:29:01 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=4 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:29:01 [INFO] data.assignament_repo: Existe registro en semana user_id=4 -> True
+2025-08-17 19:29:01 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=5 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:29:01 [INFO] data.assignament_repo: Existe registro en semana user_id=5 -> True
+2025-08-17 19:29:01 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=7 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:29:01 [INFO] data.assignament_repo: Existe registro en semana user_id=7 -> True
+2025-08-17 19:29:01 [DEBUG] data.user_repo: Obteniendo usuario id=3
+2025-08-17 19:29:01 [INFO] data.user_repo: Usuario encontrado=True id=3
+2025-08-17 19:29:01 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=3 start=2025-08-11 end=2025-08-17
+2025-08-17 19:29:01 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=3 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:29:01 [INFO] data.assignament_repo: Existe registro en semana user_id=3 -> True
+2025-08-17 19:29:01 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=3
+2025-08-17 19:29:01 [INFO] data.assignament_repo: Último registro para user_id=3: True
+2025-08-17 19:29:01 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=3 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:29:01 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=3 -> True
+2025-08-17 19:29:12 [DEBUG] data.user_repo: Obteniendo usuario id=7
+2025-08-17 19:29:12 [INFO] data.user_repo: Usuario encontrado=True id=7
+2025-08-17 19:29:12 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=7 start=2025-08-11 end=2025-08-17
+2025-08-17 19:29:12 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=7 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:29:12 [INFO] data.assignament_repo: Existe registro en semana user_id=7 -> True
+2025-08-17 19:29:12 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=7
+2025-08-17 19:29:12 [INFO] data.assignament_repo: Último registro para user_id=7: True
+2025-08-17 19:29:12 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=7 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:29:12 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=7 -> True
+2025-08-17 19:29:22 [DEBUG] services.user_service: Creando usuario name=sapu docket=cai
+2025-08-17 19:29:22 [DEBUG] data.user_repo: Intentando crear usuario name=sapu docket=cai
+2025-08-17 19:29:22 [INFO] data.user_repo: Usuario creado id=8 name=sapu
+2025-08-17 19:29:22 [DEBUG] data.user_repo: Listando todos los usuarios
+2025-08-17 19:29:22 [INFO] data.user_repo: Usuarios obtenidos: 5
+2025-08-17 19:29:22 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=3 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:29:22 [INFO] data.assignament_repo: Existe registro en semana user_id=3 -> True
+2025-08-17 19:29:22 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=4 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:29:22 [INFO] data.assignament_repo: Existe registro en semana user_id=4 -> True
+2025-08-17 19:29:22 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=5 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:29:22 [INFO] data.assignament_repo: Existe registro en semana user_id=5 -> True
+2025-08-17 19:29:22 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=7 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:29:22 [INFO] data.assignament_repo: Existe registro en semana user_id=7 -> True
+2025-08-17 19:29:22 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=8 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:29:22 [INFO] data.assignament_repo: Existe registro en semana user_id=8 -> False
+2025-08-17 19:29:24 [DEBUG] data.user_repo: Obteniendo usuario id=8
+2025-08-17 19:29:24 [INFO] data.user_repo: Usuario encontrado=True id=8
+2025-08-17 19:29:24 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=8 start=2025-08-11 end=2025-08-17
+2025-08-17 19:29:24 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=8 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:29:24 [INFO] data.assignament_repo: Existe registro en semana user_id=8 -> False
+2025-08-17 19:29:24 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=8
+2025-08-17 19:29:24 [INFO] data.assignament_repo: Último registro para user_id=8: False
+2025-08-17 19:29:24 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=8 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:29:24 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=8 -> False
+2025-08-17 19:29:25 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=8 start=2025-08-11 end=2025-08-17
+2025-08-17 19:29:25 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=8 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:29:25 [INFO] data.assignament_repo: Existe registro en semana user_id=8 -> False
+2025-08-17 19:29:25 [DEBUG] data.user_repo: Obteniendo usuario id=8
+2025-08-17 19:29:25 [INFO] data.user_repo: Usuario encontrado=True id=8
+2025-08-17 19:29:25 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=8 start=2025-08-11 end=2025-08-17
+2025-08-17 19:29:25 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=8 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:29:25 [INFO] data.assignament_repo: Existe registro en semana user_id=8 -> False
+2025-08-17 19:29:25 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=8 inicio=2025-08-04 fin=2025-08-10
+2025-08-17 19:29:25 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=8 -> False
+2025-08-17 19:29:25 [DEBUG] services.assignment_service: Creando registro user_id=8 fecha=2025-08-13 dia=Miércoles
+2025-08-17 19:29:25 [DEBUG] data.assignament_repo: Creando registro user_id=8 date=2025-08-13 week_day=Miércoles
+2025-08-17 19:29:25 [INFO] data.assignament_repo: Registro creado id=8 para user_id=8
+2025-08-17 19:29:25 [INFO] services.assignment_service: Registro creado id=8 user_id=8 date=2025-08-13 day=Miércoles
+2025-08-17 19:29:25 [DEBUG] data.user_repo: Listando todos los usuarios
+2025-08-17 19:29:25 [INFO] data.user_repo: Usuarios obtenidos: 5
+2025-08-17 19:29:25 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=3 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:29:25 [INFO] data.assignament_repo: Existe registro en semana user_id=3 -> True
+2025-08-17 19:29:25 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=4 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:29:25 [INFO] data.assignament_repo: Existe registro en semana user_id=4 -> True
+2025-08-17 19:29:25 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=5 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:29:25 [INFO] data.assignament_repo: Existe registro en semana user_id=5 -> True
+2025-08-17 19:29:25 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=7 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:29:25 [INFO] data.assignament_repo: Existe registro en semana user_id=7 -> True
+2025-08-17 19:29:25 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=8 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:29:25 [INFO] data.assignament_repo: Existe registro en semana user_id=8 -> True
+2025-08-17 19:29:25 [DEBUG] data.user_repo: Obteniendo usuario id=8
+2025-08-17 19:29:25 [INFO] data.user_repo: Usuario encontrado=True id=8
+2025-08-17 19:29:25 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=8 start=2025-08-11 end=2025-08-17
+2025-08-17 19:29:25 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=8 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:29:25 [INFO] data.assignament_repo: Existe registro en semana user_id=8 -> True
+2025-08-17 19:29:25 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=8
+2025-08-17 19:29:25 [INFO] data.assignament_repo: Último registro para user_id=8: True
+2025-08-17 19:29:25 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=8 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:29:25 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=8 -> True
+2025-08-17 19:29:27 [DEBUG] data.user_repo: Obteniendo usuario id=7
+2025-08-17 19:29:27 [INFO] data.user_repo: Usuario encontrado=True id=7
+2025-08-17 19:29:27 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=7 start=2025-08-11 end=2025-08-17
+2025-08-17 19:29:27 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=7 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:29:27 [INFO] data.assignament_repo: Existe registro en semana user_id=7 -> True
+2025-08-17 19:29:27 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=7
+2025-08-17 19:29:27 [INFO] data.assignament_repo: Último registro para user_id=7: True
+2025-08-17 19:29:27 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=7 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:29:27 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=7 -> True
+2025-08-17 19:29:28 [DEBUG] data.user_repo: Obteniendo usuario id=8
+2025-08-17 19:29:28 [INFO] data.user_repo: Usuario encontrado=True id=8
+2025-08-17 19:29:28 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=8 start=2025-08-11 end=2025-08-17
+2025-08-17 19:29:28 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=8 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:29:28 [INFO] data.assignament_repo: Existe registro en semana user_id=8 -> True
+2025-08-17 19:29:28 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=8
+2025-08-17 19:29:28 [INFO] data.assignament_repo: Último registro para user_id=8: True
+2025-08-17 19:29:28 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=8 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:29:28 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=8 -> True
+2025-08-17 19:29:32 [DEBUG] data.user_repo: Obteniendo usuario id=7
+2025-08-17 19:29:32 [INFO] data.user_repo: Usuario encontrado=True id=7
+2025-08-17 19:29:32 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=7 start=2025-08-11 end=2025-08-17
+2025-08-17 19:29:32 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=7 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:29:32 [INFO] data.assignament_repo: Existe registro en semana user_id=7 -> True
+2025-08-17 19:29:32 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=7
+2025-08-17 19:29:32 [INFO] data.assignament_repo: Último registro para user_id=7: True
+2025-08-17 19:29:32 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=7 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:29:32 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=7 -> True
+2025-08-17 19:29:33 [DEBUG] data.user_repo: Obteniendo usuario id=3
+2025-08-17 19:29:33 [INFO] data.user_repo: Usuario encontrado=True id=3
+2025-08-17 19:29:33 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=3 start=2025-08-11 end=2025-08-17
+2025-08-17 19:29:33 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=3 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:29:33 [INFO] data.assignament_repo: Existe registro en semana user_id=3 -> True
+2025-08-17 19:29:33 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=3
+2025-08-17 19:29:33 [INFO] data.assignament_repo: Último registro para user_id=3: True
+2025-08-17 19:29:33 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=3 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:29:33 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=3 -> True
+2025-08-17 19:29:35 [DEBUG] services.user_service: Eliminando usuario id=3
+2025-08-17 19:29:35 [DEBUG] data.user_repo: Eliminando usuario id=3
+2025-08-17 19:29:35 [INFO] data.user_repo: Usuario eliminado id=3
+2025-08-17 19:29:35 [DEBUG] data.user_repo: Listando todos los usuarios
+2025-08-17 19:29:35 [INFO] data.user_repo: Usuarios obtenidos: 4
+2025-08-17 19:29:35 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=4 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:29:35 [INFO] data.assignament_repo: Existe registro en semana user_id=4 -> True
+2025-08-17 19:29:35 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=5 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:29:35 [INFO] data.assignament_repo: Existe registro en semana user_id=5 -> True
+2025-08-17 19:29:35 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=7 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:29:35 [INFO] data.assignament_repo: Existe registro en semana user_id=7 -> True
+2025-08-17 19:29:35 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=8 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:29:35 [INFO] data.assignament_repo: Existe registro en semana user_id=8 -> True
+2025-08-17 19:29:39 [DEBUG] data.user_repo: Obteniendo usuario id=5
+2025-08-17 19:29:39 [INFO] data.user_repo: Usuario encontrado=True id=5
+2025-08-17 19:29:39 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=5 start=2025-08-11 end=2025-08-17
+2025-08-17 19:29:39 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=5 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:29:39 [INFO] data.assignament_repo: Existe registro en semana user_id=5 -> True
+2025-08-17 19:29:39 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=5
+2025-08-17 19:29:39 [INFO] data.assignament_repo: Último registro para user_id=5: True
+2025-08-17 19:29:39 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=5 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:29:39 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=5 -> True
+2025-08-17 19:29:41 [DEBUG] data.user_repo: Obteniendo usuario id=5
+2025-08-17 19:29:41 [INFO] data.user_repo: Usuario encontrado=True id=5
+2025-08-17 19:36:04 [DEBUG] data.user_repo: Obteniendo usuario id=7
+2025-08-17 19:36:04 [INFO] data.user_repo: Usuario encontrado=True id=7
+2025-08-17 19:36:04 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=7 start=2025-08-11 end=2025-08-17
+2025-08-17 19:36:04 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=7 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:36:04 [INFO] data.assignament_repo: Existe registro en semana user_id=7 -> True
+2025-08-17 19:36:04 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=7
+2025-08-17 19:36:04 [INFO] data.assignament_repo: Último registro para user_id=7: True
+2025-08-17 19:36:04 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=7 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:36:04 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=7 -> True
+2025-08-17 19:36:05 [DEBUG] data.user_repo: Obteniendo usuario id=5
+2025-08-17 19:36:05 [INFO] data.user_repo: Usuario encontrado=True id=5
+2025-08-17 19:36:05 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=5 start=2025-08-11 end=2025-08-17
+2025-08-17 19:36:05 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=5 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:36:05 [INFO] data.assignament_repo: Existe registro en semana user_id=5 -> True
+2025-08-17 19:36:05 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=5
+2025-08-17 19:36:05 [INFO] data.assignament_repo: Último registro para user_id=5: True
+2025-08-17 19:36:05 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=5 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:36:05 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=5 -> True
+2025-08-17 19:36:05 [DEBUG] data.user_repo: Obteniendo usuario id=8
+2025-08-17 19:36:05 [INFO] data.user_repo: Usuario encontrado=True id=8
+2025-08-17 19:36:05 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=8 start=2025-08-11 end=2025-08-17
+2025-08-17 19:36:05 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=8 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:36:05 [INFO] data.assignament_repo: Existe registro en semana user_id=8 -> True
+2025-08-17 19:36:05 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=8
+2025-08-17 19:36:05 [INFO] data.assignament_repo: Último registro para user_id=8: True
+2025-08-17 19:36:05 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=8 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:36:05 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=8 -> True
+2025-08-17 19:36:06 [DEBUG] data.user_repo: Obteniendo usuario id=7
+2025-08-17 19:36:06 [INFO] data.user_repo: Usuario encontrado=True id=7
+2025-08-17 19:36:06 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=7 start=2025-08-11 end=2025-08-17
+2025-08-17 19:36:06 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=7 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:36:06 [INFO] data.assignament_repo: Existe registro en semana user_id=7 -> True
+2025-08-17 19:36:06 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=7
+2025-08-17 19:36:06 [INFO] data.assignament_repo: Último registro para user_id=7: True
+2025-08-17 19:36:06 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=7 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:36:06 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=7 -> True
+2025-08-17 19:36:07 [DEBUG] data.user_repo: Obteniendo usuario id=5
+2025-08-17 19:36:07 [INFO] data.user_repo: Usuario encontrado=True id=5
+2025-08-17 19:36:07 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=5 start=2025-08-11 end=2025-08-17
+2025-08-17 19:36:07 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=5 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:36:07 [INFO] data.assignament_repo: Existe registro en semana user_id=5 -> True
+2025-08-17 19:36:07 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=5
+2025-08-17 19:36:07 [INFO] data.assignament_repo: Último registro para user_id=5: True
+2025-08-17 19:36:07 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=5 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:36:07 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=5 -> True
+2025-08-17 19:36:07 [DEBUG] data.user_repo: Obteniendo usuario id=4
+2025-08-17 19:36:07 [INFO] data.user_repo: Usuario encontrado=True id=4
+2025-08-17 19:36:07 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=4 start=2025-08-11 end=2025-08-17
+2025-08-17 19:36:07 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=4 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:36:07 [INFO] data.assignament_repo: Existe registro en semana user_id=4 -> True
+2025-08-17 19:36:07 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=4
+2025-08-17 19:36:07 [INFO] data.assignament_repo: Último registro para user_id=4: True
+2025-08-17 19:36:07 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=4 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:36:07 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=4 -> True
+2025-08-17 19:36:08 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=4 start=2025-08-11 end=2025-08-17
+2025-08-17 19:36:08 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=4 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:36:08 [INFO] data.assignament_repo: Existe registro en semana user_id=4 -> True
+2025-08-17 19:36:10 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=4 start=2025-08-11 end=2025-08-17
+2025-08-17 19:36:10 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=4 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:36:10 [INFO] data.assignament_repo: Existe registro en semana user_id=4 -> True
+2025-08-17 19:36:12 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=4 start=2025-08-11 end=2025-08-17
+2025-08-17 19:36:12 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=4 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:36:12 [INFO] data.assignament_repo: Existe registro en semana user_id=4 -> True
+2025-08-17 19:36:17 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=4 start=2025-08-11 end=2025-08-17
+2025-08-17 19:36:17 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=4 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:36:17 [INFO] data.assignament_repo: Existe registro en semana user_id=4 -> True
+2025-08-17 19:36:22 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=4 start=2025-08-11 end=2025-08-17
+2025-08-17 19:36:22 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=4 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:36:22 [INFO] data.assignament_repo: Existe registro en semana user_id=4 -> True
+2025-08-17 19:36:26 [DEBUG] data.user_repo: Obteniendo usuario id=5
+2025-08-17 19:36:26 [INFO] data.user_repo: Usuario encontrado=True id=5
+2025-08-17 19:36:26 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=5 start=2025-08-11 end=2025-08-17
+2025-08-17 19:36:26 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=5 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:36:26 [INFO] data.assignament_repo: Existe registro en semana user_id=5 -> True
+2025-08-17 19:36:26 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=5
+2025-08-17 19:36:26 [INFO] data.assignament_repo: Último registro para user_id=5: True
+2025-08-17 19:36:26 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=5 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:36:26 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=5 -> True
+2025-08-17 19:36:27 [DEBUG] data.user_repo: Obteniendo usuario id=4
+2025-08-17 19:36:27 [INFO] data.user_repo: Usuario encontrado=True id=4
+2025-08-17 19:36:27 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=4 start=2025-08-11 end=2025-08-17
+2025-08-17 19:36:27 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=4 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:36:27 [INFO] data.assignament_repo: Existe registro en semana user_id=4 -> True
+2025-08-17 19:36:27 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=4
+2025-08-17 19:36:27 [INFO] data.assignament_repo: Último registro para user_id=4: True
+2025-08-17 19:36:27 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=4 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:36:27 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=4 -> True
+2025-08-17 19:36:28 [DEBUG] data.user_repo: Obteniendo usuario id=7
+2025-08-17 19:36:28 [INFO] data.user_repo: Usuario encontrado=True id=7
+2025-08-17 19:36:28 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=7 start=2025-08-11 end=2025-08-17
+2025-08-17 19:36:28 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=7 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:36:28 [INFO] data.assignament_repo: Existe registro en semana user_id=7 -> True
+2025-08-17 19:36:28 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=7
+2025-08-17 19:36:28 [INFO] data.assignament_repo: Último registro para user_id=7: True
+2025-08-17 19:36:28 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=7 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:36:28 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=7 -> True
+2025-08-17 19:36:29 [DEBUG] data.user_repo: Obteniendo usuario id=8
+2025-08-17 19:36:29 [INFO] data.user_repo: Usuario encontrado=True id=8
+2025-08-17 19:36:29 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=8 start=2025-08-11 end=2025-08-17
+2025-08-17 19:36:29 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=8 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:36:29 [INFO] data.assignament_repo: Existe registro en semana user_id=8 -> True
+2025-08-17 19:36:29 [DEBUG] data.assignament_repo: Obteniendo último registro para user_id=8
+2025-08-17 19:36:29 [INFO] data.assignament_repo: Último registro para user_id=8: True
+2025-08-17 19:36:29 [DEBUG] data.assignament_repo: Obteniendo registro de la semana user_id=8 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:36:29 [INFO] data.assignament_repo: Registro de la semana encontrado user_id=8 -> True
+2025-08-17 19:39:27 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=8 start=2025-08-11 end=2025-08-17
+2025-08-17 19:39:27 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=8 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:39:27 [INFO] data.assignament_repo: Existe registro en semana user_id=8 -> True
+2025-08-17 19:39:29 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=8 start=2025-08-11 end=2025-08-17
+2025-08-17 19:39:29 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=8 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:39:29 [INFO] data.assignament_repo: Existe registro en semana user_id=8 -> True
+2025-08-17 19:39:30 [DEBUG] services.assignment_service: Esta registrado esta semana user_id=8 start=2025-08-11 end=2025-08-17
+2025-08-17 19:39:30 [DEBUG] data.assignament_repo: Verificando existencia en semana user_id=8 inicio=2025-08-11 fin=2025-08-17
+2025-08-17 19:39:30 [INFO] data.assignament_repo: Existe registro en semana user_id=8 -> True
+2025-08-17 19:42:18 [INFO] GestorEmpleados: Aplicación finalizada

@@ -15,6 +15,8 @@ from PyQt6.QtWidgets import (
     QLabel,
     QPushButton,
     QListWidget,
+    QStyledItemDelegate,
+    QStyle,
     QMainWindow,
     QSplitter,
     QHBoxLayout,
@@ -32,6 +34,61 @@ from PyQt6.QtWidgets import QMessageBox
 from config import RESOURCES_DIR
 from PyQt6.QtGui import QCursor, QIcon
 from PyQt6.QtCore import QSize
+from PyQt6.QtCore import pyqtSignal
+from PyQt6.QtGui import QPainter, QPen, QBrush
+from PyQt6.QtCore import QRectF
+
+
+class ThemeSwitch(QWidget):
+    """Interruptor visual tipo *toggle* con una bola que se mueve izquierda/derecha.
+
+    checked=True -> modo claro (sol a la izquierda)
+    checked=False -> modo oscuro (luna a la derecha)
+    """
+    toggled = pyqtSignal(bool)
+
+    def __init__(self, parent=None) -> None:
+        super().__init__(parent)
+        self._checked = True  # por pedido: iniciar en sol (claro)
+        self.setFixedSize(64, 28)
+        self.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+
+    def isChecked(self) -> bool:
+        return self._checked
+
+    def setChecked(self, value: bool) -> None:
+        if self._checked != value:
+            self._checked = value
+            self.toggled.emit(self._checked)
+            self.update()
+
+    def mousePressEvent(self, event) -> None:
+        self.setChecked(not self._checked)
+
+    def paintEvent(self, event) -> None:
+        p = QPainter(self)
+        p.setRenderHint(QPainter.RenderHint.Antialiasing, True)
+
+        rect = self.rect()
+        bg = QColor(240, 244, 248) if self._checked else QColor(30, 35, 42)
+        border = QColor(208, 215, 222) if self._checked else QColor(60, 68, 77)
+        p.setBrush(QBrush(bg))
+        p.setPen(QPen(border, 1))
+        radius = rect.height() / 2
+        p.drawRoundedRect(QRectF(rect), radius, radius)
+
+        # texto sol y luna
+        p.setPen(QColor(120, 120, 120) if self._checked else QColor(180, 190, 200))
+        p.drawText(8, int(rect.height() * 0.65), "☀")
+        p.drawText(rect.width() - 18, int(rect.height() * 0.65), "☾")
+
+        # perilla
+        knob_d = rect.height() - 6
+        y = 3
+        x = 3 if self._checked else rect.width() - knob_d - 3
+        p.setBrush(QBrush(QColor(255, 255, 255) if self._checked else QColor(200, 205, 210)))
+        p.setPen(QPen(QColor(210, 215, 220) if self._checked else QColor(80, 90, 100), 1))
+        p.drawEllipse(x, y, knob_d, knob_d)
 
 
 class MainWindow(QMainWindow):
@@ -69,22 +126,45 @@ class MainWindow(QMainWindow):
             btn_add_user.setIconSize(QSize(18, 18))
         except Exception:
             pass
+        self._add_user_btn = btn_add_user
         empleados_label = QLabel("Empleados:")
         empleados_label.setProperty("role", "section")
         emp_title_row = QHBoxLayout()
         emp_title_row.setSpacing(6)
-        emp_icon = QLabel()
+        self._emp_icon_label = QLabel()
         try:
-            emp_icon.setPixmap(QIcon(str(RESOURCES_DIR / "icons" / "employees.svg")).pixmap(QSize(16, 16)))
+            self._emp_icon_label.setPixmap(QIcon(str(RESOURCES_DIR / "icons" / "employees.svg")).pixmap(QSize(16, 16)))
         except Exception:
             pass
-        emp_title_row.addWidget(emp_icon)
+        emp_title_row.addWidget(self._emp_icon_label)
         emp_title_row.addWidget(empleados_label)
         emp_title_row.addStretch(1)
         empleados_list = QListWidget()
         self._employees_list = empleados_list
         # Evitar rectángulo punteado de foco en la lista
         self._employees_list.setFocusPolicy(Qt.FocusPolicy.NoFocus)
+        # Delegado para pintar claramente los ítems registrados
+        class RegisteredItemDelegate(QStyledItemDelegate):
+            def paint(self, painter, option, index):
+                try:
+                    marked = index.data(1000)
+                    bg = index.data(1001)
+                    fg = index.data(1002)
+                    if marked and bg is not None:
+                        if not (option.state & QStyle.StateFlag.State_Selected):
+                            painter.save()
+                            painter.fillRect(option.rect, bg)
+                            painter.restore()
+                        # Forzar color de texto si está disponible
+                        if fg is not None:
+                            opt = option
+                            painter.save()
+                            # Dejar que el texto se pinte con el color por defecto; el fg lo aplica el modelo abajo
+                            painter.restore()
+                except Exception:
+                    pass
+                super().paint(painter, option, index)
+        self._employees_list.setItemDelegate(RegisteredItemDelegate(self._employees_list))
         sidebar.setMinimumWidth(240)
         sidebar.setMaximumWidth(360)
 
@@ -100,6 +180,7 @@ class MainWindow(QMainWindow):
         except Exception:
             pass
         top_new_btn.clicked.connect(self._on_add_user)
+        self._top_new_btn = top_new_btn
         sidebar_layout.insertWidget(0, top_new_btn, 0, Qt.AlignmentFlag.AlignLeft)
         sidebar_layout.insertSpacing(1, 4)
         emp_title_container = QFrame()
@@ -115,6 +196,8 @@ class MainWindow(QMainWindow):
         content_layout = QVBoxLayout(content)
         content_layout.setContentsMargins(20, 12, 20, 16)
         content_layout.setSpacing(12)
+
+        # (Se eliminaron filas extra: no alteramos el layout vertical)
 
         # Encabezado horizontal: nombre (título) y legajo (subtítulo)
         self._lbl_name = QLabel("Nombre completo")
@@ -160,6 +243,10 @@ class MainWindow(QMainWindow):
         header_row.addStretch(1)
         header_row.addWidget(self._btn_edit)
         header_row.addWidget(self._btn_delete)
+        # Interruptor de tema, pegado a la derecha
+        self._theme_switch = ThemeSwitch(self)
+        self._theme_switch.toggled.connect(self._on_theme_switch)
+        header_row.addWidget(self._theme_switch)
 
         header_frame = QFrame()
         header_frame.setObjectName("headerPanel")
@@ -183,12 +270,12 @@ class MainWindow(QMainWindow):
         reg_box.setSpacing(2)
         reg_title_row = QHBoxLayout()
         reg_title_row.setSpacing(6)
-        reg_icon = QLabel()
+        self._reg_icon_label = QLabel()
         try:
-            reg_icon.setPixmap(QIcon(str(RESOURCES_DIR / "icons" / "register.svg")).pixmap(QSize(16, 16)))
+            self._reg_icon_label.setPixmap(QIcon(str(RESOURCES_DIR / "icons" / "register.svg")).pixmap(QSize(16, 16)))
         except Exception:
             pass
-        reg_title_row.addWidget(reg_icon)
+        reg_title_row.addWidget(self._reg_icon_label)
         reg_title_row.addWidget(self._reg_title)
         reg_title_row.addStretch(1)
         reg_box.addLayout(reg_title_row)
@@ -203,12 +290,12 @@ class MainWindow(QMainWindow):
         last_date_box.setSpacing(2)
         last_date_title_row = QHBoxLayout()
         last_date_title_row.setSpacing(6)
-        last_date_icon = QLabel()
+        self._last_date_icon_label = QLabel()
         try:
-            last_date_icon.setPixmap(QIcon(str(RESOURCES_DIR / "icons" / "ultimate_day_calendar.svg")).pixmap(QSize(16, 16)))
+            self._last_date_icon_label.setPixmap(QIcon(str(RESOURCES_DIR / "icons" / "ultimate_day_calendar.svg")).pixmap(QSize(16, 16)))
         except Exception:
             pass
-        last_date_title_row.addWidget(last_date_icon)
+        last_date_title_row.addWidget(self._last_date_icon_label)
         last_date_title_row.addWidget(self._last_date_title)
         last_date_title_row.addStretch(1)
         last_date_box.addLayout(last_date_title_row)
@@ -223,12 +310,12 @@ class MainWindow(QMainWindow):
         last_day_box.setSpacing(2)
         last_day_title_row = QHBoxLayout()
         last_day_title_row.setSpacing(6)
-        last_day_icon = QLabel()
+        self._last_day_icon_label = QLabel()
         try:
-            last_day_icon.setPixmap(QIcon(str(RESOURCES_DIR / "icons" / "day_calendar.svg")).pixmap(QSize(16, 16)))
+            self._last_day_icon_label.setPixmap(QIcon(str(RESOURCES_DIR / "icons" / "day_calendar.svg")).pixmap(QSize(16, 16)))
         except Exception:
             pass
-        last_day_title_row.addWidget(last_day_icon)
+        last_day_title_row.addWidget(self._last_day_icon_label)
         last_day_title_row.addWidget(self._last_day_title)
         last_day_title_row.addStretch(1)
         last_day_box.addLayout(last_day_title_row)
@@ -251,14 +338,14 @@ class MainWindow(QMainWindow):
         # Encabezado: icono + 'Semana' y debajo el rango de fechas
         week_header_row = QHBoxLayout()
         week_header_row.setSpacing(6)
-        week_icon = QLabel()
+        self._week_icon_label = QLabel()
         try:
-            week_icon.setPixmap(QIcon(str(RESOURCES_DIR / "icons" / "calendar_semanal.svg")).pixmap(QSize(16, 16)))
+            self._week_icon_label.setPixmap(QIcon(str(RESOURCES_DIR / "icons" / "calendar_semanal.svg")).pixmap(QSize(16, 16)))
         except Exception:
             pass
         self._lbl_week_title = QLabel("Semana")
         self._lbl_week_title.setObjectName("weekTitle")
-        week_header_row.addWidget(week_icon)
+        week_header_row.addWidget(self._week_icon_label)
         week_header_row.addWidget(self._lbl_week_title)
         week_header_row.addStretch(1)
 
@@ -319,19 +406,34 @@ class MainWindow(QMainWindow):
         self._btn_edit.clicked.connect(self._on_edit_user)
         self._btn_delete.clicked.connect(self._on_delete_user)
 
-        # Carga inicial de datos de UI
-        self.load_users()
-        self._setup_week_ui(date.today())
         # Estado de selección de día en calendario
         self._selected_date_iso = None
-        # Cargar estilos QSS si existe
+        # Cargar estilos QSS oscuro base en memoria
         try:
             qss_path = RESOURCES_DIR / "style.qss"
             if qss_path.exists():
                 with open(qss_path, "r", encoding="utf-8") as f:
-                    self.setStyleSheet(f.read())
+                    self._dark_qss = f.read()
+            else:
+                self._dark_qss = ""
+        except Exception:
+            self._dark_qss = ""
+
+        # Tema inicial: CLARO, sin tocar tamaños
+        self._current_theme = "light"
+        self._apply_light_theme()
+        self._apply_icon_palette("light")
+        try:
+            # Sincronizar el switch visual
+            self._theme_switch.setChecked(True)
         except Exception:
             pass
+
+        # Carga inicial de datos de UI (después del tema para pintar bien la lista)
+        self.load_users()
+        self._setup_week_ui(date.today())
+        # Estado de selección de día en calendario
+        self._selected_date_iso = None
 
         # Flag para centrar y adaptar tamaño solo una vez al mostrarse
         self._did_center_once = False
@@ -354,23 +456,41 @@ class MainWindow(QMainWindow):
         pending = [(u, f) for (u, f) in status_list if not f]
         done = [(u, f) for (u, f) in status_list if f]
 
-        marked_brush = QBrush(QColor(46, 204, 113, 140))  # verde translúcido más visible en dark
+        # Colores de ítem registrado según tema
+        if getattr(self, "_current_theme", "dark") == "light":
+            # Tema claro: azul muy claro para destacar sin molestar
+            marked_bg = QColor(232, 242, 255)   # #E8F2FF
+            marked_fg = QColor(15, 23, 42)      # #0F172A
+        else:
+            # Tema oscuro: azul grisáceo translúcido, texto claro
+            marked_bg = QColor(38, 50, 64, 170) # rgba aproximado
+            marked_fg = QColor(230, 236, 241)   # texto claro
+        marked_brush = QBrush(marked_bg)
 
         def _add_items(pairs: list[tuple]):
             for u, is_marked in pairs:
                 it = QListWidgetItem(u.name)
                 it.setData(Qt.ItemDataRole.UserRole, u.id)
                 if is_marked:
-                    it.setBackground(marked_brush)
-                    # Ligeramente más claro el texto para destacar sin molestar
-                    it.setForeground(QBrush(QColor(207, 243, 218)))
+                    # Roles personalizados para delegado
+                    it.setData(1000, True)  # marcado
+                    it.setData(1001, marked_bg)  # fondo
+                    it.setData(1002, marked_fg)  # texto
+                    # También fijar roles estándar por compatibilidad
+                    it.setData(Qt.ItemDataRole.BackgroundRole, QBrush(marked_bg))
+                    it.setData(Qt.ItemDataRole.ForegroundRole, QBrush(marked_fg))
                     it.setToolTip("Registrado esta semana")
                 else:
+                    it.setData(1000, False)
                     it.setToolTip("Sin registro esta semana")
                 self._employees_list.addItem(it)
 
         _add_items(pending)
         _add_items(done)
+        try:
+            self._employees_list.viewport().update()
+        except Exception:
+            pass
 
     
     def _mark_registered_day_for_user(self, user_id: int) -> None:
@@ -718,6 +838,121 @@ class MainWindow(QMainWindow):
         if not getattr(self, "_did_center_once", False):
             self._apply_adaptive_size_and_center()
             self._did_center_once = True
+
+    # ===== Tema claro/oscuro =====
+    def _on_theme_switch(self, is_light: bool) -> None:
+        """Alterna tema sin modificar layouts ni tamaños."""
+        if is_light:
+            self._apply_light_theme()
+            self._apply_icon_palette("light")
+        else:
+            self._apply_dark_theme()
+            self._apply_icon_palette("dark")
+        # Repintar lista para aplicar nuevo esquema de colores manteniendo selección
+        try:
+            current = self._employees_list.currentItem()
+            current_id = current.data(Qt.ItemDataRole.UserRole) if current else None
+        except Exception:
+            current_id = None
+        self.load_users()
+        if current_id is not None:
+            self._select_user_in_list(int(current_id))
+
+    def _apply_dark_theme(self) -> None:
+        """Aplica el tema oscuro leyendo el QSS del proyecto."""
+        try:
+            qss_path = RESOURCES_DIR / "style.qss"
+            if qss_path.exists():
+                with open(qss_path, "r", encoding="utf-8") as f:
+                    self.setStyleSheet(f.read())
+                self._current_theme = "dark"
+            else:
+                self.setStyleSheet("")
+                self._current_theme = "default"
+        except Exception:
+            self._current_theme = "default"
+
+    def _apply_light_theme(self) -> None:
+        """Aplica el tema claro desde archivo dedicado, sin cambiar medidas."""
+        try:
+            qss_path = RESOURCES_DIR / "style_light.qss"
+            if qss_path.exists():
+                with open(qss_path, "r", encoding="utf-8") as f:
+                    self.setStyleSheet(f.read())
+                self._current_theme = "light"
+        except Exception:
+            pass
+
+    def _apply_icon_palette(self, theme: str) -> None:
+        """Cambia íconos según tema.
+
+        Regla correcta:
+        - Interfaz oscura -> usar carpeta background/black
+        - Interfaz clara  -> usar carpeta background/white
+        con fallback al ícono base si falta el themed.
+        """
+        try:
+            base = RESOURCES_DIR / "icons"
+            bg = base / "background"
+            tone = "white" if theme == "light" else "black"
+
+            def pick(name: str, fallback: str | None = None) -> QIcon | None:
+                themed = bg / tone / name
+                if themed.exists():
+                    return QIcon(str(themed))
+                if fallback is not None:
+                    fb = base / fallback
+                    if fb.exists():
+                        return QIcon(str(fb))
+                return None
+
+            # Semana (si existe variante)
+            ico = pick("calendar_semanal.svg", "calendar_semanal.svg")
+            if ico is not None:
+                try:
+                    self._week_icon_label.setPixmap(ico.pixmap(QSize(16, 16)))
+                except Exception:
+                    pass
+
+            # Editar / Eliminar (preferir variantes nuevas)
+            edit_icon = pick("edit.svg", "edit-3-svgrepo-com.svg")
+            if edit_icon is not None:
+                self._btn_edit.setIcon(edit_icon)
+                self._btn_edit.setIconSize(QSize(20, 20))
+            del_icon = pick("delete.svg", "delete-2-svgrepo-com.svg")
+            if del_icon is not None:
+                self._btn_delete.setIcon(del_icon)
+                self._btn_delete.setIconSize(QSize(20, 20))
+
+            # Empleados
+            emp_icon = pick("employees.svg", "employees.svg")
+            if emp_icon is not None:
+                try:
+                    self._emp_icon_label.setPixmap(emp_icon.pixmap(QSize(16, 16)))
+                except Exception:
+                    pass
+
+            # Registrado / Último registro / Último día
+            reg_icon = pick("check.svg", "register.svg")
+            if reg_icon is not None:
+                try:
+                    self._reg_icon_label.setPixmap(reg_icon.pixmap(QSize(16, 16)))
+                except Exception:
+                    pass
+            last_date_icon = pick("calendar.svg", "ultimate_day_calendar.svg")
+            if last_date_icon is not None:
+                try:
+                    self._last_date_icon_label.setPixmap(last_date_icon.pixmap(QSize(16, 16)))
+                except Exception:
+                    pass
+            last_day_icon = pick("daily-calendar.svg", "day_calendar.svg")
+            if last_day_icon is not None:
+                try:
+                    self._last_day_icon_label.setPixmap(last_day_icon.pixmap(QSize(16, 16)))
+                except Exception:
+                    pass
+        except Exception:
+            pass
 
 def run_app() -> None:
     """Crea QApplication si es necesario y lanza la ventana principal."""
