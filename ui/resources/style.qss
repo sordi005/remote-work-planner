@@ -5,31 +5,60 @@
     color: #e6ecf1;
 }
 
+QLabel {
+    background: transparent;
+}
+
 QWidget {
     background: #11151A;
 }
 
 /* Paneles */
 QFrame#headerPanel {
-    background: #11151A;
-    border: 1px solid #1E2329;
+    background: #141A20; /* un poco más claro que el fondo */
+    border: 1px solid #252C33;
     border-radius: 8px;
-    padding: 12px;
+    padding: 12px 16px;
+    margin-bottom: 16px; /* bajar más el bloque para repartir verticalmente */
+}
+QFrame#headerPanel QLabel {
+    background: #141A20; /* asegurar mismo fondo para labels dentro */
 }
 
 QFrame#infoPanel {
-    background: #11151A;
-    border: 1px dashed #1E2329;
+    background: #141A20;
+    border: 1px dashed #252C33;
     border-radius: 8px;
     padding: 8px 12px;
+    margin-bottom: 12px; /* separar del calendario */
+}
+QFrame#infoPanel QLabel {
+    background: #141A20;
+}
+
+/* Tarjeta del calendario */
+QFrame#calendarCard {
+    background: transparent; /* se integra con el fondo general */
+    border: 1px solid #252C33;
+    border-radius: 10px;
+    padding: 12px;
+    margin-top: 4px;
 }
 
 /* Secciones */
 QLabel[role="section"] {
-    font-size: 12px;
-    color: #9AA6B2;
+    font-size: 14px;
+    font-weight: 600;
+    color: #B9C6D3;
     text-transform: uppercase;
     letter-spacing: 0.08em;
+}
+
+QLabel[role="caption"] {
+    font-size: 12px;
+    color: #9AA6B2;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
 }
 
 QLabel[role="metricTitle"] {
@@ -45,21 +74,21 @@ QLabel[role="metricValue"] {
 
 /* Lista de empleados */
 QListWidget {
-    background: #11151A;
-    border: 1px solid #1E2329;
+    background: transparent; /* se adapta al fondo del contenedor */
+    border: 1px solid #252C33;
     border-radius: 8px;
     padding: 6px;
 }
 QListWidget::item {
-    padding: 8px 10px;
+    padding: 10px 12px;
     border-radius: 6px;
 }
 QListWidget::item:selected {
-    background: #192028;
+    background: #1B2430;
     color: #ffffff;
 }
 QListWidget::item:hover {
-    background: #161C22;
+    background: #182028;
 }
 
 /* Botones generales */
@@ -128,7 +157,9 @@ QPushButton[kind="day"] {
     background: #11151A;
     border: 1px solid #1E2329;
     border-radius: 10px;
-    padding: 10px 6px;
+    padding: 10px 10px;
+    min-width: 96px;
+    font-size: 13px;
 }
 QPushButton[kind="day"]:hover {
     background: #151A1F;
@@ -155,6 +186,28 @@ QPushButton[kind="day"]:disabled {
 /* Título de semana */
 QLabel#weekTitle {
     color: #9AA6B2;
+    font-size: 14px;
+}
+
+/* Botón éxito (verde) y tamaño pequeño */
+QPushButton[btn="success"] {
+    background: #1F6F4A;
+    color: #EAFBF1;
+    border: 1px solid #2F8F4E;
+}
+QPushButton[btn="success"]:hover {
+    background: #248356;
+    border-color: #3AA964;
+}
+QPushButton[btn="success"]:pressed {
+    background: #1B5E41;
+    border-color: #2B7B4D;
+}
+
+QPushButton[btn_size="sm"] {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
 }
 
 /* Semántica de estado (registrado sí/no) */

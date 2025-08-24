@@ -30,7 +30,8 @@ from datetime import date, timedelta
 from PyQt6.QtWidgets import QButtonGroup
 from PyQt6.QtWidgets import QMessageBox
 from config import RESOURCES_DIR
-from PyQt6.QtGui import QCursor
+from PyQt6.QtGui import QCursor, QIcon
+from PyQt6.QtCore import QSize
 
 
 class MainWindow(QMainWindow):
@@ -46,8 +47,9 @@ class MainWindow(QMainWindow):
     def __init__(self) -> None:
         super().__init__()
         self.setWindowTitle("Trabajo Remoto - Gestor")
-        self.resize(1280, 800)
-        self.setMinimumSize(1000, 680)
+        self.resize(1200, 700)
+        # Mínimos más flexibles para permitir achicar la UI sin romper labels
+        self.setMinimumSize(1160, 640)
         self._user_service = UserService()
         self._assign_service = AsignacionService()
 
@@ -58,35 +60,69 @@ class MainWindow(QMainWindow):
         sidebar_layout.setContentsMargins(12, 12, 12, 12)
         sidebar_layout.setSpacing(12)
 
-        btn_add_user = QPushButton("Agregar Empleado")
-        btn_add_user.setProperty("btn", "primary")
+        btn_add_user = QPushButton("Nuevo")
+        btn_add_user.setProperty("btn", "success")
+        btn_add_user.setProperty("btn_size", "sm")
         btn_add_user.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        try:
+            btn_add_user.setIcon(QIcon(str(RESOURCES_DIR / "icons" / "add_employee.svg")))
+            btn_add_user.setIconSize(QSize(18, 18))
+        except Exception:
+            pass
         empleados_label = QLabel("Empleados:")
-        empleados_label.setProperty("role", "section") 
+        empleados_label.setProperty("role", "section")
+        emp_title_row = QHBoxLayout()
+        emp_title_row.setSpacing(6)
+        emp_icon = QLabel()
+        try:
+            emp_icon.setPixmap(QIcon(str(RESOURCES_DIR / "icons" / "employees.svg")).pixmap(QSize(16, 16)))
+        except Exception:
+            pass
+        emp_title_row.addWidget(emp_icon)
+        emp_title_row.addWidget(empleados_label)
+        emp_title_row.addStretch(1)
         empleados_list = QListWidget()
         self._employees_list = empleados_list
         # Evitar rectángulo punteado de foco en la lista
         self._employees_list.setFocusPolicy(Qt.FocusPolicy.NoFocus)
-        sidebar.setMinimumWidth(260)
+        sidebar.setMinimumWidth(240)
         sidebar.setMaximumWidth(360)
 
-        sidebar_layout.addWidget(btn_add_user)
-        sidebar_layout.addSpacing(12)
-        sidebar_layout.addWidget(empleados_label)
+        # Botón eliminado de esta zona (ahora está en la fila de título); agregamos un botón superior
+        top_new_btn = QPushButton("Nuevo")
+        top_new_btn.setProperty("btn", "success")
+        top_new_btn.setProperty("btn_size", "sm")
+        top_new_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        top_new_btn.setMaximumWidth(80)
+        try:
+            top_new_btn.setIcon(QIcon(str(RESOURCES_DIR / "icons" / "add_employee.svg")))
+            top_new_btn.setIconSize(QSize(16, 16))
+        except Exception:
+            pass
+        top_new_btn.clicked.connect(self._on_add_user)
+        sidebar_layout.insertWidget(0, top_new_btn, 0, Qt.AlignmentFlag.AlignLeft)
+        sidebar_layout.insertSpacing(1, 4)
+        emp_title_container = QFrame()
+        emp_title_container.setLayout(emp_title_row)
+        sidebar_layout.addWidget(emp_title_container)
+        # Dejar casi pegado el título a la lista
+        sidebar_layout.addSpacing(0)
         sidebar_layout.addWidget(empleados_list, 1)
 
         # Contenido (derecha): encabezado + info + calendario semanal
         content = QFrame()
         content.setFrameShape(QFrame.Shape.NoFrame) 
         content_layout = QVBoxLayout(content)
-        content_layout.setContentsMargins(24, 24, 24, 24)
+        content_layout.setContentsMargins(20, 12, 20, 16)
         content_layout.setSpacing(12)
 
         # Encabezado horizontal: nombre (título) y legajo (subtítulo)
         self._lbl_name = QLabel("Nombre completo")
+        self._lbl_name.setMinimumWidth(220)
         self._lbl_name.setStyleSheet("font-size: 22px; font-weight: 600;")
 
         self._lbl_docket = QLabel("Legajo")
+        self._lbl_docket.setMinimumWidth(120)
         self._lbl_docket.setStyleSheet("color: #666; font-size: 14px;")
 
         header_box = QVBoxLayout() # QVBoxLayout : Vertical Box Layout
@@ -101,6 +137,18 @@ class MainWindow(QMainWindow):
         self._btn_delete.setProperty("btn", "danger")
         self._btn_edit.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self._btn_delete.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        try:
+            from pathlib import Path
+            edit_icon = RESOURCES_DIR / "icons" / "edit-3-svgrepo-com.svg"
+            delete_icon = RESOURCES_DIR / "icons" / "delete-2-svgrepo-com.svg"
+            if Path(edit_icon).exists():
+                self._btn_edit.setIcon(QIcon(str(edit_icon)))
+                self._btn_edit.setIconSize(QSize(20, 20))
+            if Path(delete_icon).exists():
+                self._btn_delete.setIcon(QIcon(str(delete_icon)))
+                self._btn_delete.setIconSize(QSize(20, 20))
+        except Exception:
+            pass
         self._btn_edit.setEnabled(False)
         self._btn_delete.setEnabled(False)
         self._btn_edit.setVisible(False)
@@ -116,6 +164,10 @@ class MainWindow(QMainWindow):
         header_frame = QFrame()
         header_frame.setObjectName("headerPanel")
         header_frame.setLayout(header_row)
+        # Título global arriba de todo
+        top_caption = QLabel("Registrar día Remoto")
+        top_caption.setProperty("role", "caption")
+        content_layout.addWidget(top_caption)
         content_layout.addWidget(header_frame)
 
         # Fila de información (horizontal): estado semanal + último registro (en cajas)
@@ -129,7 +181,17 @@ class MainWindow(QMainWindow):
         self._reg_value.setProperty("role", "metricValue")
         reg_box = QVBoxLayout()
         reg_box.setSpacing(2)
-        reg_box.addWidget(self._reg_title)
+        reg_title_row = QHBoxLayout()
+        reg_title_row.setSpacing(6)
+        reg_icon = QLabel()
+        try:
+            reg_icon.setPixmap(QIcon(str(RESOURCES_DIR / "icons" / "register.svg")).pixmap(QSize(16, 16)))
+        except Exception:
+            pass
+        reg_title_row.addWidget(reg_icon)
+        reg_title_row.addWidget(self._reg_title)
+        reg_title_row.addStretch(1)
+        reg_box.addLayout(reg_title_row)
         reg_box.addWidget(self._reg_value)
 
         # Último registro (fecha)
@@ -139,7 +201,17 @@ class MainWindow(QMainWindow):
         self._last_date_value.setProperty("role", "metricValue")
         last_date_box = QVBoxLayout()
         last_date_box.setSpacing(2)
-        last_date_box.addWidget(self._last_date_title)
+        last_date_title_row = QHBoxLayout()
+        last_date_title_row.setSpacing(6)
+        last_date_icon = QLabel()
+        try:
+            last_date_icon.setPixmap(QIcon(str(RESOURCES_DIR / "icons" / "ultimate_day_calendar.svg")).pixmap(QSize(16, 16)))
+        except Exception:
+            pass
+        last_date_title_row.addWidget(last_date_icon)
+        last_date_title_row.addWidget(self._last_date_title)
+        last_date_title_row.addStretch(1)
+        last_date_box.addLayout(last_date_title_row)
         last_date_box.addWidget(self._last_date_value)
 
         # Último día (nombre)
@@ -149,7 +221,17 @@ class MainWindow(QMainWindow):
         self._last_day_value.setProperty("role", "metricValue")
         last_day_box = QVBoxLayout()
         last_day_box.setSpacing(2)
-        last_day_box.addWidget(self._last_day_title)
+        last_day_title_row = QHBoxLayout()
+        last_day_title_row.setSpacing(6)
+        last_day_icon = QLabel()
+        try:
+            last_day_icon.setPixmap(QIcon(str(RESOURCES_DIR / "icons" / "day_calendar.svg")).pixmap(QSize(16, 16)))
+        except Exception:
+            pass
+        last_day_title_row.addWidget(last_day_icon)
+        last_day_title_row.addWidget(self._last_day_title)
+        last_day_title_row.addStretch(1)
+        last_day_box.addLayout(last_day_title_row)
         last_day_box.addWidget(self._last_day_value)
 
         info_row.addLayout(reg_box)
@@ -163,12 +245,29 @@ class MainWindow(QMainWindow):
         content_layout.addWidget(info_frame)
 
         # Calendario semanal (maqueta con selección de un día)
-        self._lbl_week = QLabel("")
-        self._lbl_week.setObjectName("weekTitle")
-        self._lbl_week.setStyleSheet("font-size: 13px;")
+        # Título sutil por encima de la cuadrícula
+        cal_caption = QLabel("Registrar día Remoto")
+        cal_caption.setProperty("role", "caption")
+        # Encabezado: icono + 'Semana' y debajo el rango de fechas
+        week_header_row = QHBoxLayout()
+        week_header_row.setSpacing(6)
+        week_icon = QLabel()
+        try:
+            week_icon.setPixmap(QIcon(str(RESOURCES_DIR / "icons" / "calendar_semanal.svg")).pixmap(QSize(16, 16)))
+        except Exception:
+            pass
+        self._lbl_week_title = QLabel("Semana")
+        self._lbl_week_title.setObjectName("weekTitle")
+        week_header_row.addWidget(week_icon)
+        week_header_row.addWidget(self._lbl_week_title)
+        week_header_row.addStretch(1)
 
-        days_row = QHBoxLayout() 
-        days_row.setSpacing(8)
+        self._lbl_week_range = QLabel("")
+        self._lbl_week_range.setStyleSheet("font-size: 13px;")
+
+        days_row = QHBoxLayout()
+        days_row.setSpacing(10)
+        days_row.setContentsMargins(0, 6, 0, 0)
         self._day_buttons: list[QPushButton] = []
         self._day_group = QButtonGroup(self)
         self._day_group.setExclusive(True)
@@ -179,15 +278,19 @@ class MainWindow(QMainWindow):
             btn.setMinimumHeight(68)
             btn.setProperty("kind", "day")
             btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+            # Sin icono en los botones de días (pedido del usuario)
             self._day_buttons.append(btn)
             self._day_group.addButton(btn)
             days_row.addWidget(btn)
 
         calendar_frame = QFrame()
+        calendar_frame.setObjectName("calendarCard")
         cal_layout = QVBoxLayout(calendar_frame)
-        cal_layout.setContentsMargins(0, 12, 0, 0)
-        cal_layout.setSpacing(8)
-        cal_layout.addWidget(self._lbl_week)
+        cal_layout.setContentsMargins(12, 12, 12, 12)
+        cal_layout.setSpacing(10)
+        cal_layout.addWidget(cal_caption)
+        cal_layout.addLayout(week_header_row)
+        cal_layout.addWidget(self._lbl_week_range)
         cal_layout.addLayout(days_row)
         content_layout.addWidget(calendar_frame)
 
@@ -382,7 +485,8 @@ class MainWindow(QMainWindow):
         start = base - timedelta(days=base.weekday())  # lunes
         end = start + timedelta(days=6)  # domingo
         self._current_week_start = start
-        self._lbl_week.setText(f"Semana: {start.strftime('%d/%m/%Y')} - {end.strftime('%d/%m/%Y')}")
+        self._lbl_week_title.setText("Semana")
+        self._lbl_week_range.setText(f"{start.strftime('%d/%m/%Y')} - {end.strftime('%d/%m/%Y')}")
 
         weekday_names = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"]
         for i, btn in enumerate(self._day_buttons):
@@ -580,8 +684,30 @@ class MainWindow(QMainWindow):
 
 def run_app() -> None:
     """Crea QApplication si es necesario y lanza la ventana principal."""
+    # Configuración High-DPI debe ejecutarse ANTES de crear la QApplication
+    try:
+        from PyQt6.QtGui import QGuiApplication
+        from PyQt6.QtCore import Qt
+        if hasattr(QGuiApplication, "setHighDpiScaleFactorRoundingPolicy"):
+            QGuiApplication.setHighDpiScaleFactorRoundingPolicy(
+                Qt.HighDpiScaleFactorRoundingPolicy.PassThrough
+            )
+    except Exception:
+        pass
     app = QApplication.instance() or QApplication([])
+
     win = MainWindow()
+    # Icono de ventana si existe app.ico o app.png
+    try:
+        from config import RESOURCES_DIR
+        icon_ico = RESOURCES_DIR / "app.ico"
+        icon_png = RESOURCES_DIR / "app.png"
+        if icon_ico.exists():
+            win.setWindowIcon(QIcon(str(icon_ico)))
+        elif icon_png.exists():
+            win.setWindowIcon(QIcon(str(icon_png)))
+    except Exception:
+        pass
     win.show()
     app.exec()
 
