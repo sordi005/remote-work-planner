@@ -22,7 +22,7 @@ QFrame#headerPanel {
     margin-bottom: 16px; /* bajar más el bloque para repartir verticalmente */
 }
 QFrame#headerPanel QLabel {
-    background: #141A20; /* asegurar mismo fondo para labels dentro */
+    background: transparent; /* labels sin fondo propio */
 }
 
 QFrame#infoPanel {
@@ -33,16 +33,19 @@ QFrame#infoPanel {
     margin-bottom: 12px; /* separar del calendario */
 }
 QFrame#infoPanel QLabel {
-    background: #141A20;
+    background: transparent;
 }
 
 /* Tarjeta del calendario */
 QFrame#calendarCard {
-    background: transparent; /* se integra con el fondo general */
+    background: #141A20; /* igual que otros paneles para uniformidad */
     border: 1px solid #252C33;
     border-radius: 10px;
     padding: 12px;
     margin-top: 4px;
+}
+QFrame#calendarCard QLabel {
+    background: transparent; /* labels del calendario transparentes */
 }
 
 /* Secciones */

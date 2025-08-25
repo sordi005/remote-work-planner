@@ -10,7 +10,7 @@ QLabel {
 }
 
 QWidget {
-    background:rgb(255, 255, 255);
+    background: #F8FAFC;
 }
 
 /* Paneles (mismas paddings/márgenes/radios que oscuro) */
@@ -25,7 +25,7 @@ QFrame#headerPanel QLabel { background: #FFFFFF; }
 
 QFrame#infoPanel {
     background: #FFFFFF;
-    border: 1px dashed #E2E8F0;
+    border: 1px dashed #CBD5E1;
     border-radius: 8px;
     padding: 8px 12px;
     margin-bottom: 12px;
@@ -34,7 +34,7 @@ QFrame#infoPanel QLabel { background: #FFFFFF; }
 
 /* Tarjeta del calendario */
 QFrame#calendarCard {
-    background: transparent;
+    background: #FFFFFF;
     border: 1px solid #E2E8F0;
     border-radius: 10px;
     padding: 12px;
@@ -62,7 +62,7 @@ QLabel[role="metricValue"] { color: #0F172A; font-size: 16px; font-weight: 600; 
 
 /* Lista de empleados */
 QListWidget {
-    background: transparent;
+    background: #FFFFFF;
     border: 1px solid #E2E8F0;
     border-radius: 8px;
     padding: 6px;
