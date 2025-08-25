@@ -121,21 +121,14 @@ class MainWindow(QMainWindow):
         btn_add_user.setProperty("btn", "success")
         btn_add_user.setProperty("btn_size", "sm")
         btn_add_user.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        try:
-            btn_add_user.setIcon(QIcon(str(RESOURCES_DIR / "icons" / "add_employee.svg")))
-            btn_add_user.setIconSize(QSize(18, 18))
-        except Exception:
-            pass
+        # Icono se asigna en _apply_icon_palette según tema
         self._add_user_btn = btn_add_user
         empleados_label = QLabel("Empleados:")
         empleados_label.setProperty("role", "section")
         emp_title_row = QHBoxLayout()
         emp_title_row.setSpacing(6)
         self._emp_icon_label = QLabel()
-        try:
-            self._emp_icon_label.setPixmap(QIcon(str(RESOURCES_DIR / "icons" / "employees.svg")).pixmap(QSize(16, 16)))
-        except Exception:
-            pass
+        # Icono se asigna en _apply_icon_palette
         emp_title_row.addWidget(self._emp_icon_label)
         emp_title_row.addWidget(empleados_label)
         emp_title_row.addStretch(1)
@@ -143,28 +136,6 @@ class MainWindow(QMainWindow):
         self._employees_list = empleados_list
         # Evitar rectángulo punteado de foco en la lista
         self._employees_list.setFocusPolicy(Qt.FocusPolicy.NoFocus)
-        # Delegado para pintar claramente los ítems registrados
-        class RegisteredItemDelegate(QStyledItemDelegate):
-            def paint(self, painter, option, index):
-                try:
-                    marked = index.data(1000)
-                    bg = index.data(1001)
-                    fg = index.data(1002)
-                    if marked and bg is not None:
-                        if not (option.state & QStyle.StateFlag.State_Selected):
-                            painter.save()
-                            painter.fillRect(option.rect, bg)
-                            painter.restore()
-                        # Forzar color de texto si está disponible
-                        if fg is not None:
-                            opt = option
-                            painter.save()
-                            # Dejar que el texto se pinte con el color por defecto; el fg lo aplica el modelo abajo
-                            painter.restore()
-                except Exception:
-                    pass
-                super().paint(painter, option, index)
-        self._employees_list.setItemDelegate(RegisteredItemDelegate(self._employees_list))
         sidebar.setMinimumWidth(240)
         sidebar.setMaximumWidth(360)
 
@@ -174,11 +145,7 @@ class MainWindow(QMainWindow):
         top_new_btn.setProperty("btn_size", "sm")
         top_new_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         top_new_btn.setMaximumWidth(80)
-        try:
-            top_new_btn.setIcon(QIcon(str(RESOURCES_DIR / "icons" / "add_employee.svg")))
-            top_new_btn.setIconSize(QSize(16, 16))
-        except Exception:
-            pass
+        # Icono se asigna en _apply_icon_palette
         top_new_btn.clicked.connect(self._on_add_user)
         self._top_new_btn = top_new_btn
         sidebar_layout.insertWidget(0, top_new_btn, 0, Qt.AlignmentFlag.AlignLeft)
@@ -271,10 +238,7 @@ class MainWindow(QMainWindow):
         reg_title_row = QHBoxLayout()
         reg_title_row.setSpacing(6)
         self._reg_icon_label = QLabel()
-        try:
-            self._reg_icon_label.setPixmap(QIcon(str(RESOURCES_DIR / "icons" / "register.svg")).pixmap(QSize(16, 16)))
-        except Exception:
-            pass
+        # Icono se asigna en _apply_icon_palette
         reg_title_row.addWidget(self._reg_icon_label)
         reg_title_row.addWidget(self._reg_title)
         reg_title_row.addStretch(1)
@@ -291,10 +255,7 @@ class MainWindow(QMainWindow):
         last_date_title_row = QHBoxLayout()
         last_date_title_row.setSpacing(6)
         self._last_date_icon_label = QLabel()
-        try:
-            self._last_date_icon_label.setPixmap(QIcon(str(RESOURCES_DIR / "icons" / "ultimate_day_calendar.svg")).pixmap(QSize(16, 16)))
-        except Exception:
-            pass
+        # Icono se asigna en _apply_icon_palette
         last_date_title_row.addWidget(self._last_date_icon_label)
         last_date_title_row.addWidget(self._last_date_title)
         last_date_title_row.addStretch(1)
@@ -311,10 +272,7 @@ class MainWindow(QMainWindow):
         last_day_title_row = QHBoxLayout()
         last_day_title_row.setSpacing(6)
         self._last_day_icon_label = QLabel()
-        try:
-            self._last_day_icon_label.setPixmap(QIcon(str(RESOURCES_DIR / "icons" / "day_calendar.svg")).pixmap(QSize(16, 16)))
-        except Exception:
-            pass
+        # Icono se asigna en _apply_icon_palette
         last_day_title_row.addWidget(self._last_day_icon_label)
         last_day_title_row.addWidget(self._last_day_title)
         last_day_title_row.addStretch(1)
@@ -339,10 +297,7 @@ class MainWindow(QMainWindow):
         week_header_row = QHBoxLayout()
         week_header_row.setSpacing(6)
         self._week_icon_label = QLabel()
-        try:
-            self._week_icon_label.setPixmap(QIcon(str(RESOURCES_DIR / "icons" / "calendar_semanal.svg")).pixmap(QSize(16, 16)))
-        except Exception:
-            pass
+        # Icono se asigna en _apply_icon_palette
         self._lbl_week_title = QLabel("Semana")
         self._lbl_week_title.setObjectName("weekTitle")
         week_header_row.addWidget(self._week_icon_label)
@@ -456,32 +411,21 @@ class MainWindow(QMainWindow):
         pending = [(u, f) for (u, f) in status_list if not f]
         done = [(u, f) for (u, f) in status_list if f]
 
-        # Colores de ítem registrado según tema
+        # Colores de ítem registrado según tema (solo texto)
         if getattr(self, "_current_theme", "dark") == "light":
-            # Tema claro: azul muy claro para destacar sin molestar
-            marked_bg = QColor(232, 242, 255)   # #E8F2FF
-            marked_fg = QColor(15, 23, 42)      # #0F172A
+            marked_fg = QColor(2, 106, 167)     # azul legible sobre blanco
         else:
-            # Tema oscuro: azul grisáceo translúcido, texto claro
-            marked_bg = QColor(38, 50, 64, 170) # rgba aproximado
-            marked_fg = QColor(230, 236, 241)   # texto claro
-        marked_brush = QBrush(marked_bg)
+            marked_fg = QColor(93, 200, 255)    # cian claro sobre oscuro
 
         def _add_items(pairs: list[tuple]):
             for u, is_marked in pairs:
                 it = QListWidgetItem(u.name)
                 it.setData(Qt.ItemDataRole.UserRole, u.id)
                 if is_marked:
-                    # Roles personalizados para delegado
-                    it.setData(1000, True)  # marcado
-                    it.setData(1001, marked_bg)  # fondo
-                    it.setData(1002, marked_fg)  # texto
-                    # También fijar roles estándar por compatibilidad
-                    it.setData(Qt.ItemDataRole.BackgroundRole, QBrush(marked_bg))
+                    # Solo texto distinto para empleados registrados
                     it.setData(Qt.ItemDataRole.ForegroundRole, QBrush(marked_fg))
                     it.setToolTip("Registrado esta semana")
                 else:
-                    it.setData(1000, False)
                     it.setToolTip("Sin registro esta semana")
                 self._employees_list.addItem(it)
 
@@ -945,10 +889,22 @@ class MainWindow(QMainWindow):
                     self._last_date_icon_label.setPixmap(last_date_icon.pixmap(QSize(16, 16)))
                 except Exception:
                     pass
-            last_day_icon = pick("daily-calendar.svg", "day_calendar.svg")
+            # Usar exactamente day_calendar.svg como pidió el usuario
+            last_day_icon = pick("day_calendar.svg", "day_calendar.svg")
             if last_day_icon is not None:
                 try:
                     self._last_day_icon_label.setPixmap(last_day_icon.pixmap(QSize(16, 16)))
+                except Exception:
+                    pass
+
+            # Botones "Nuevo" (top y sidebar) si existen
+            add_icon = pick("add_employee.svg", "add_employee.svg")
+            if add_icon is not None:
+                try:
+                    self._top_new_btn.setIcon(add_icon)
+                    self._top_new_btn.setIconSize(QSize(16, 16))
+                    self._add_user_btn.setIcon(add_icon)
+                    self._add_user_btn.setIconSize(QSize(18, 18))
                 except Exception:
                     pass
         except Exception:
