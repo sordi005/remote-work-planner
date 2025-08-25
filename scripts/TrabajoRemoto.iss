@@ -13,10 +13,22 @@ ArchitecturesInstallIn64BitMode=x64
 PrivilegesRequired=admin
 UninstallDisplayIcon={app}\TrabajoRemoto.exe
 SetupIconFile=..\ui\resources\app.ico
-SignTool=signtool sign /fd SHA256 /tr $q{#GetEnv('SIGN_TIMESTAMP_URL')|http://timestamp.digicert.com}$q /td SHA256 /f $q{#GetEnv('SIGN_PFX_PATH')}$q /p $q{#GetEnv('SIGN_PFX_PASS')}$q $f
+; Firma opcional: usa variables de entorno si existen, si no, omite firma
+#define SignPfx GetEnv("SIGN_PFX_PATH")
+#define SignPfxPass GetEnv("SIGN_PFX_PASS")
+#define SignTsEnv GetEnv("SIGN_TIMESTAMP_URL")
+#if SignTsEnv == ""
+  #define SignTs "http://timestamp.digicert.com"
+#else
+  #define SignTs SignTsEnv
+#endif
+#if (SignPfx != "") && (SignPfxPass != "")
+SignTool=signtool sign /fd SHA256 /tr $q{#SignTs}$q /td SHA256 /f $q{#SignPfx}$q /p $q{#SignPfxPass}$q $f
+#endif
 
 [Files]
-Source: "..\dist\TrabajoRemoto.exe"; DestDir: "{app}"; Flags: ignoreversion
+; Modo onedir: empaqueta la carpeta completa generada por PyInstaller
+Source: "..\dist\TrabajoRemoto\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
 Name: "{group}\Trabajo Remoto"; Filename: "{app}\TrabajoRemoto.exe"
