@@ -8,29 +8,12 @@ Responsabilidades:
 """
 
 from logger_config import logger
-from data.db_utils import get_connection
-from data.schema import create_tables
 from ui.main_window import run_app
 
 
 def main() -> None:
     logger.info("Aplicación iniciando")
-    try:
-        logger.debug("Creando/verificando tablas de badse de datos...")
-        create_tables()
-        logger.info("Tablas listas")
-    except Exception:
-        logger.exception("Error al crear/verificar tablas")
-        raise
-
-    try:
-        logger.debug("Abriendo conexión de prueba a la base de datos...")
-        conn = get_connection()
-        logger.info("Conexión a la base de datos OK")
-    finally:
-        conn.close()
-        logger.debug("Conexión a la base de datos cerrada")
-
+    # La creación de tablas y la prueba de conexión se difieren al arranque de la UI
     run_app()
 
     logger.info("Aplicación finalizada")

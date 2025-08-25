@@ -37,6 +37,7 @@ from PyQt6.QtCore import QSize
 from PyQt6.QtCore import pyqtSignal
 from PyQt6.QtGui import QPainter, QPen, QBrush
 from PyQt6.QtCore import QRectF
+from PyQt6.QtCore import QTimer
 
 
 class ThemeSwitch(QWidget):
@@ -136,6 +137,11 @@ class MainWindow(QMainWindow):
         self._employees_list = empleados_list
         # Evitar rectángulo punteado de foco en la lista
         self._employees_list.setFocusPolicy(Qt.FocusPolicy.NoFocus)
+        # Optimización de render: items de tamaño uniforme
+        try:
+            self._employees_list.setUniformItemSizes(True)
+        except Exception:
+            pass
         sidebar.setMinimumWidth(240)
         sidebar.setMaximumWidth(360)
 
@@ -363,16 +369,8 @@ class MainWindow(QMainWindow):
 
         # Estado de selección de día en calendario
         self._selected_date_iso = None
-        # Cargar estilos QSS oscuro base en memoria
-        try:
-            qss_path = RESOURCES_DIR / "style.qss"
-            if qss_path.exists():
-                with open(qss_path, "r", encoding="utf-8") as f:
-                    self._dark_qss = f.read()
-            else:
-                self._dark_qss = ""
-        except Exception:
-            self._dark_qss = ""
+        # Cache de iconos por ruta para evitar IO repetido
+        self._icon_cache: dict[str, QIcon] = {}
 
         # Tema inicial: CLARO, sin tocar tamaños
         self._current_theme = "light"
@@ -384,9 +382,8 @@ class MainWindow(QMainWindow):
         except Exception:
             pass
 
-        # Carga inicial de datos de UI (después del tema para pintar bien la lista)
-        self.load_users()
-        self._setup_week_ui(date.today())
+        # Diferir carga de datos y preparación de semana al primer frame
+        QTimer.singleShot(0, self._deferred_init)
         # Estado de selección de día en calendario
         self._selected_date_iso = None
 
@@ -399,6 +396,8 @@ class MainWindow(QMainWindow):
         El `id` queda asociado como `UserRole` en cada item para recuperarlo al seleccionar.
         """
         users = self._user_service.list_users()
+        self._employees_list.setUpdatesEnabled(False)
+        self._employees_list.blockSignals(True)
         self._employees_list.clear()
         # Consultar estado semanal para pintar usuarios registrados
         try:
@@ -435,6 +434,9 @@ class MainWindow(QMainWindow):
             self._employees_list.viewport().update()
         except Exception:
             pass
+        finally:
+            self._employees_list.blockSignals(False)
+            self._employees_list.setUpdatesEnabled(True)
 
     
     def _mark_registered_day_for_user(self, user_id: int) -> None:
@@ -840,14 +842,26 @@ class MainWindow(QMainWindow):
             bg = base / "background"
             tone = "white" if theme == "light" else "black"
 
+            def _from_cache(path_str: str) -> QIcon | None:
+                ico = self._icon_cache.get(path_str)
+                if ico is not None:
+                    return ico
+                try:
+                    icon = QIcon(path_str)
+                    # QIcon construído aunque el archivo no exista; validamos con actual size
+                    self._icon_cache[path_str] = icon
+                    return icon
+                except Exception:
+                    return None
+
             def pick(name: str, fallback: str | None = None) -> QIcon | None:
                 themed = bg / tone / name
                 if themed.exists():
-                    return QIcon(str(themed))
+                    return _from_cache(str(themed))
                 if fallback is not None:
                     fb = base / fallback
                     if fb.exists():
-                        return QIcon(str(fb))
+                        return _from_cache(str(fb))
                 return None
 
             # Semana (si existe variante)
@@ -907,6 +921,25 @@ class MainWindow(QMainWindow):
                     self._add_user_btn.setIconSize(QSize(18, 18))
                 except Exception:
                     pass
+        except Exception:
+            pass
+
+    def _deferred_init(self) -> None:
+        """Trabajo diferido al primer frame para acelerar el arranque visual."""
+        try:
+            # Asegurar esquema de BD disponible
+            from data.schema import create_tables
+            create_tables()
+        except Exception:
+            # Si falla, seguimos para que al menos la UI aparezca; los flujos mostrarán error
+            pass
+        # Poblado de UI básico
+        try:
+            self.load_users()
+        except Exception:
+            pass
+        try:
+            self._setup_week_ui(date.today())
         except Exception:
             pass
 
