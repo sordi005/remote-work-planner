@@ -11,6 +11,14 @@ if (Test-Path build) { Remove-Item build -Recurse -Force }
 $projectRoot = Split-Path -Parent $MyInvocation.MyCommand.Path | Split-Path -Parent
 $resourcesDir = Join-Path $projectRoot "ui/resources"
 
+$venvPy = Join-Path $projectRoot ".venv/Scripts/python.exe"
+if (Test-Path $venvPy -PathType Leaf) {
+  $python = $venvPy
+} else {
+  # fallback a python en PATH
+  $python = "python"
+}
+
 $iconIco = Join-Path $resourcesDir "app.ico"
 $iconPng = Join-Path $resourcesDir "app.png"
 $iconPath = $null
@@ -19,7 +27,7 @@ elseif (Test-Path $iconPng) { $iconPath = $iconPng }
 
 Write-Host "[build] Running PyInstaller..." -ForegroundColor Cyan
 if ($null -ne $iconPath) {
-  pyinstaller --noconfirm --windowed --onedir --clean --noupx `
+  & $python -m PyInstaller --noconfirm --windowed --onedir --clean --noupx `
     --name TrabajoRemoto `
     --icon "$iconPath" `
     --add-data "$resourcesDir;ui/resources" `
@@ -27,7 +35,7 @@ if ($null -ne $iconPath) {
     "$projectRoot/main.py"
 } else {
   Write-Host "[build] app icon not found (ui/resources/app.ico|app.png). Building without --icon..." -ForegroundColor Yellow
-  pyinstaller --noconfirm --windowed --onedir --clean --noupx `
+  & $python -m PyInstaller --noconfirm --windowed --onedir --clean --noupx `
     --name TrabajoRemoto `
     --add-data "$resourcesDir;ui/resources" `
     --collect-all PyQt6 `
