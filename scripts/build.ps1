@@ -19,7 +19,7 @@ elseif (Test-Path $iconPng) { $iconPath = $iconPng }
 
 Write-Host "[build] Running PyInstaller..." -ForegroundColor Cyan
 if ($null -ne $iconPath) {
-  pyinstaller --noconfirm --windowed --onefile --clean --noupx `
+  pyinstaller --noconfirm --windowed --onedir --clean --noupx `
     --name TrabajoRemoto `
     --icon "$iconPath" `
     --add-data "$resourcesDir;ui/resources" `
@@ -27,14 +27,15 @@ if ($null -ne $iconPath) {
     "$projectRoot/main.py"
 } else {
   Write-Host "[build] app icon not found (ui/resources/app.ico|app.png). Building without --icon..." -ForegroundColor Yellow
-  pyinstaller --noconfirm --windowed --onefile --clean --noupx `
+  pyinstaller --noconfirm --windowed --onedir --clean --noupx `
     --name TrabajoRemoto `
     --add-data "$resourcesDir;ui/resources" `
     --collect-all PyQt6 `
     "$projectRoot/main.py"
 }
 
-$exePath = Join-Path $PWD "dist/TrabajoRemoto.exe"
+# onedir: el exe queda dentro de dist/TrabajoRemoto/TrabajoRemoto.exe
+$exePath = Join-Path $PWD "dist/TrabajoRemoto/TrabajoRemoto.exe"
 if (Test-Path $exePath -PathType Leaf) {
   $pfx = $env:SIGN_PFX_PATH
   $ppw = $env:SIGN_PFX_PASS

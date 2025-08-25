@@ -15,8 +15,9 @@ from datetime import date, timedelta
 from pathlib import Path
 import sys
 
-# Habilitar imports del proyecto
-ROOT_DIR = Path(__file__).resolve().parents[1]
+# Habilitar imports del proyecto (raíz del repo)
+# .../scripts/db/seed_mixed_weeks.py -> subir 2 niveles hasta el root
+ROOT_DIR = Path(__file__).resolve().parents[2]
 if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
