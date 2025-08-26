@@ -85,5 +85,31 @@ SmartScreen: sin un certificado de firma de código reconocido, Windows puede mo
 - SmartScreen: sin firma, es normal el aviso. Con firma (.pfx) se reduce.
 - Error de imports al ejecutar scripts fuera de raíz: ejecuta desde la raíz del proyecto o usa el `.exe`/Setup.
 
+### Capturas de pantalla
+
+<div align="center">
+  <img src="docs/screenshots/ui-light.png" width="900" alt="Tema claro — vista principal" />
+</div>
+
+<div align="center">
+  <img src="docs/screenshots/ui-dark.png" width="900" alt="Tema oscuro — vista principal" />
+</div>
+
+<div align="center">
+  <img src="docs/screenshots/advertencia-dia-repetido.png" width="520" alt="Advertencia por repetir día de la semana anterior" />
+  <img src="docs/screenshots/confirmar-asignacion.png" width="520" alt="Confirmación de asignación" />
+</div>
+
+<div align="center">
+  <img src="docs/screenshots/instalacion-1.png" width="800" alt="Instalador — bienvenida" />
+  <img src="docs/screenshots/instalacion-2.png" width="800" alt="Instalador — elegir carpeta (Program Files por defecto)" />
+  <img src="docs/screenshots/instalacion-3.png" width="800" alt="Instalador — finalización" />
+</div>
+
+<div align="center">
+  <img src="docs/screenshots/icono-escritorio.png" width="360" alt="Acceso directo en el escritorio" />
+  
+</div>
+
 ### Licencia
 MIT
