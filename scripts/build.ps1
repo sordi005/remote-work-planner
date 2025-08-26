@@ -62,5 +62,5 @@ if (Test-Path $exePath -PathType Leaf) {
   }
 }
 
-Write-Host "[build] Done. Output in dist/TrabajoRemoto.exe" -ForegroundColor Green
+Write-Host "[build] Done. Output in dist/TrabajoRemoto/TrabajoRemoto.exe" -ForegroundColor Green
 
