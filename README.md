@@ -96,18 +96,18 @@ SmartScreen: sin un certificado de firma de código reconocido, Windows puede mo
 </div>
 
 <div align="center">
-  <img src="docs/screenshots/advertencia-dia-repetido.png" width="520" alt="Advertencia por repetir día de la semana anterior" />
-  <img src="docs/screenshots/confirmar-asignacion.png" width="520" alt="Confirmación de asignación" />
+  <img src="docs/screenshots/advertencia-dia-repetido.png" width="420" alt="Advertencia por repetir día de la semana anterior" />
+  <img src="docs/screenshots/confirmar-asignacion.png" width="420" alt="Confirmación de asignación" />
 </div>
 
 <div align="center">
-  <img src="docs/screenshots/instalacion-1.png" width="800" alt="Instalador — bienvenida" />
-  <img src="docs/screenshots/instalacion-2.png" width="800" alt="Instalador — elegir carpeta (Program Files por defecto)" />
-  <img src="docs/screenshots/instalacion-3.png" width="800" alt="Instalador — finalización" />
+  <img src="docs/screenshots/instalacion-1.png" width="680" alt="Instalador — bienvenida" />
+  <img src="docs/screenshots/instalacion-2.png" width="680" alt="Instalador — elegir carpeta (Program Files por defecto)" />
+  <img src="docs/screenshots/instalacion-3.png" width="680" alt="Instalador — finalización" />
 </div>
 
 <div align="center">
-  <img src="docs/screenshots/icono-escritorio.png" width="360" alt="Acceso directo en el escritorio" />
+  <img src="docs/screenshots/icono-escritorio.png" width="128" alt="Acceso directo en el escritorio" />
   
 </div>
 

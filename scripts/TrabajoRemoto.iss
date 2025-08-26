@@ -31,10 +31,12 @@ SignTool=signtool sign /fd SHA256 /tr $q{#SignTs}$q /td SHA256 /f $q{#SignPfx}$q
 [Files]
 ; Modo onedir: empaqueta la carpeta completa generada por PyInstaller
 Source: "..\dist\TrabajoRemoto\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+; Copiar ícono para usarlo en accesos directos explícitamente
+Source: "..\ui\resources\app.ico"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
-Name: "{group}\Trabajo Remoto"; Filename: "{app}\TrabajoRemoto.exe"
-Name: "{userdesktop}\Trabajo Remoto"; Filename: "{app}\TrabajoRemoto.exe"; Tasks: desktopicon
+Name: "{group}\Trabajo Remoto"; Filename: "{app}\TrabajoRemoto.exe"; IconFilename: "{app}\app.ico"
+Name: "{userdesktop}\Trabajo Remoto"; Filename: "{app}\TrabajoRemoto.exe"; IconFilename: "{app}\app.ico"; Tasks: desktopicon
 
 [Tasks]
 Name: "desktopicon"; Description: "Crear acceso directo en el Escritorio"; Flags: unchecked
