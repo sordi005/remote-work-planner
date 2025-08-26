@@ -161,7 +161,7 @@ QPushButton[kind="day"] {
     border: 1px solid #1E2329;
     border-radius: 10px;
     padding: 10px 10px;
-    min-width: 96px;
+    min-width: 65px;
     font-size: 13px;
 }
 QPushButton[kind="day"]:hover {

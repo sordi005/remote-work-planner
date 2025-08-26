@@ -15,6 +15,7 @@ from PyQt6.QtWidgets import (
     QLabel,
     QPushButton,
     QListWidget,
+    QSizePolicy,
     QStyledItemDelegate,
     QStyle,
     QMainWindow,
@@ -320,16 +321,20 @@ class MainWindow(QMainWindow):
         self._day_group = QButtonGroup(self)
         self._day_group.setExclusive(True)
 
-        for _ in range(7):
+        for i in range(7):
             btn = QPushButton("-")
             btn.setCheckable(True)
             btn.setMinimumHeight(68)
             btn.setProperty("kind", "day")
             btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+            # Permitir que todos los botones se expandan/contraigan equitativamente
+            btn.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
             # Sin icono en los botones de días (pedido del usuario)
             self._day_buttons.append(btn)
             self._day_group.addButton(btn)
             days_row.addWidget(btn)
+            # Hacer que cada botón tenga el mismo factor de estiramiento
+            days_row.setStretch(i, 1)
 
         calendar_frame = QFrame()
         calendar_frame.setObjectName("calendarCard")
